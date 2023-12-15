@@ -10,12 +10,13 @@ import ConIcon1 from './svg/ConIcon1';
 import ConIcon2 from './svg/ConIcon2';
 import ConIcon3 from './svg/ConIcon3';
 import ConIcon4 from './svg/ConIcon4';
-import PlusIcon from './svg/PlusIcon';
-import MinusIcon from './svg/MinusIcon';
+
+import MapComponent1 from './img/MapComponent1';
 
 import * as S from './style';
 
 function Main() {
+    const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
     const [cal, setCal] = useState(0);
@@ -28,6 +29,7 @@ function Main() {
     let date = currentTime.getDate();
 
     useEffect(() => {
+        mealApi();
         Api();
     },[]);
 
@@ -84,8 +86,20 @@ function Main() {
     }
 
     const Api = () => {
+        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/MAIN/FOURTH`;
+
+        axios.get(URL)
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
+    const mealApi = () => {
         const mealCode = getMealCode();
-        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=${year}${month}${date}&MMEAL_SC_CODE=${mealCode}`;
+        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231219&MMEAL_SC_CODE=${mealCode}`;
         const cleanedURL = URL.replace(/\(\)/g, '');
 
         axios.get(cleanedURL)
@@ -131,74 +145,77 @@ function Main() {
         return processedMenu;
     }
 
-
     const handleBtnClick = () => {
         navigate(`/structure`);
     }
 
+    const handleMealClick = () => {
+        setShowModal(true);
+    }
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+    }
+
     return (
         <>
-        <S.Body>
-            <S.NavBar>
-                <S.ConIcon>
-                    <ConIcon1/>
-                    <ConIcon2/>
-                    <ConIcon3/>
-                    <ConIcon4/>
-                </S.ConIcon>
-                <S.NavText>
-                    <S.MealText>
-                        급식
-                    </S.MealText>
-                    <S.ComplainText>
-                        민원
-                    </S.ComplainText>
-                </S.NavText>
-            </S.NavBar>
+            <S.StyledBody>
+                <S.Body>
+                    <S.NavBar>
+                        <S.ConIcon>
+                            <ConIcon1/>
+                            <ConIcon2/>
+                            <ConIcon3/>
+                            <ConIcon4/>
+                        </S.ConIcon>
+                        <S.NavText>
+                            <S.MealText onClick={handleMealClick}>
+                                급식
+                            </S.MealText>
+                            <S.ComplainText>
+                                민원
+                            </S.ComplainText>
+                        </S.NavText>
+                    </S.NavBar>
 
-            <S.ContentBox>
-                <S.IconBox>
-                    <PlusIcon/>
-                    <MinusIcon/>
-                </S.IconBox>
-            </S.ContentBox>
-        </S.Body>
+                    <S.ContentBox>
+                        <S.MapBox>
+                            <MapComponent1/>
+                        </S.MapBox>
+                    </S.ContentBox>
 
-            <div>
-                현재 시간: {currentTime.toLocaleTimeString()}
-            </div>
+                    <S.TimerBox>
+                        <S.Timer>
+                            <S.TimerText>
+                                {currentTime.toLocaleTimeString()}
+                            </S.TimerText>
+                        </S.Timer>
+                    </S.TimerBox>
+                </S.Body>
+            </S.StyledBody>
 
-            <p></p>
+            <S.ModalOverlay showModal={showModal} onClick={handleCloseModal} />
+            <S.Modal showModal={showModal}>
+                <S.ModalContent>
+                    <S.ModalBox>
+                        <S.ModalText>오늘의 메뉴</S.ModalText>
+                        <S.MealContent>
+                            {menu && menu.map((menuItem, index) => (
+                                <S.MealList
+                                    key={index}
+                                    style={menuItem.name.includes("2") ? { color: "red"} : {}}
+                                >
+                                    {menuItem.name}
+                                </S.MealList>
+                            ))}
+                        </S.MealContent>
+                    </S.ModalBox>
+                </S.ModalContent>
+            </S.Modal>
 
             <button onClick={handleBtnClick}>구조 페이지로</button>
 
-            <p></p>
-
-            <button onClick={Api}>버튼</button>
-
-            <div>
-                <div>{name}</div>
-
-                <p></p>
-
-                <div>칼로리 : {cal}</div>
-
-                <p></p>
-
-                <div>
-                    <div>오늘의 메뉴</div>
-                    <ul>
-                    {menu && menu.map((menuItem, index) => (
-                        <li
-                            key={index}
-                            style={menuItem.name.includes("2") ? { color: 'red'} : {}}
-                        >
-                            {menuItem.name} {Array.isArray(menuItem.numbers) && menuItem.numbers.length > 0 ? `(${menuItem.numbers.join(', ')})` : ''}
-                        </li>
-                    ))}
-                    </ul>
-                </div>
-            </div>
+            <button onClick={Api}>API</button>
         </>
     );
 }
