@@ -11,7 +11,7 @@ export const Body  = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    gap: 1.75rem;
+    gap: 1.5rem;
 `
 
 export const NavBar = styled.div`
@@ -93,12 +93,12 @@ export const ContentBox = styled.div`
     flex-shrink: 0;
     border-radius: 0.625rem;
     background: #F0F1F2;
+    overflow: auto;
 `
 
 export const MapBox = styled.div`
     display: flex;
     justify-content: center;
-    width: 30rem;
     height: 20rem;
     flex-shrink: 0;
     overflow: auto;
@@ -109,13 +109,14 @@ export const TimerBox = styled.div`
     display: flex;
     flex-direction: row;
     gap: 1rem;
+    width: 37.5rem;
 `
 
 export const Timer = styled.div`
     display: inline-flex;
     width: 12.875rem;
     height: 3.5rem;
-    padding: 0.625rem;
+    padding-bottom: 0.625rem;
     justify-content: center;
     align-items: center;
     gap: 0.625rem;
@@ -125,10 +126,11 @@ export const Timer = styled.div`
 export const TimerText = styled.div`
     color: var(--yellow_black, #252621);
     font-family: monospace;
-    font-size: 1.875rem;
+    font-size: 1.575rem;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    float: left;
 `
 
 export const ModalContent = styled.div`
@@ -200,3 +202,21 @@ export const Modal = styled.div`
     display: ${(props) => (props.showModal ? 'block' : 'none')};
     border-radius: 1rem;
 `
+
+export const MainContent = styled.div`
+    display: inline-block;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2.5rem;
+`
+
+export const FloorLocation = styled.div`
+    display: flex;
+    width: 37.5rem;
+    justify-content: space-between;
+    align-items: flex-start;
+`
+
+export const RedText = styled.span`
+    color: red;
+`;

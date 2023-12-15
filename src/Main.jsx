@@ -12,6 +12,10 @@ import ConIcon3 from './svg/ConIcon3';
 import ConIcon4 from './svg/ConIcon4';
 
 import MapComponent1 from './img/MapComponent1';
+import MapComponent2 from './img/MapComponent2';
+import MapComponent3 from './img/MapComponent3';
+import MapComponent4 from './img/MapComponent4';
+import MapComponent5 from './img/MapComponent5';
 
 import * as S from './style';
 
@@ -86,11 +90,10 @@ function Main() {
     }
 
     const Api = () => {
-        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/MAIN/FOURTH`;
-
+        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/wapoo/MAIN/FOURTH`;
         axios.get(URL)
         .then((response) => {
-            console.log(response);
+            console.log(response.data);
         })
         .catch((error) => {
             console.log(error);
@@ -127,23 +130,26 @@ function Main() {
     }
 
     const parseMenu = (menuString) => {
-        const menuArray = menuString.split('<br/>'); // <br/> 태그를 기준으로 항목을 분할
+        const menuArray = menuString.split('<br/>');
         const processedMenu = [];
     
         for (const item of menuArray) {
-            const parts = item.split(/\.\.\./); // '...'를 기준으로 항목을 분할
-            const menuItem = parts[0].trim(); // 메뉴명
-            const menuNumbers = parts[1] ? parts[1].trim() : ''; // 숫자들
-
-            const cleanedMenuItem = menuItem.replace(/\(\)/g, '').trim();
-
+            const parts = item.split(/\.\.\./);
+            const menuItem = parts[0].trim();
+    
+            const cleanedMenuItem = menuItem.replace(/[^가-힣\s]/g, '').trim();
+    
+            const splitedItems = menuItem.split("(");
+            const hasNumberTwo = splitedItems[1]?.includes("2");
+    
             processedMenu.push({
                 name: cleanedMenuItem,
-                numbers: menuNumbers
+                hasNumberTwo: hasNumberTwo,
             });
         }
         return processedMenu;
-    }
+    };
+    
 
     const handleBtnClick = () => {
         navigate(`/structure`);
@@ -180,38 +186,57 @@ function Main() {
 
                     <S.ContentBox>
                         <S.MapBox>
-                            <MapComponent1/>
+                            <MapComponent4/>
                         </S.MapBox>
                     </S.ContentBox>
 
                     <S.TimerBox>
                         <S.Timer>
                             <S.TimerText>
-                                {currentTime.toLocaleTimeString()}
+                                {currentTime.toLocaleTimeString()}                        
                             </S.TimerText>
                         </S.Timer>
                     </S.TimerBox>
                 </S.Body>
+                
             </S.StyledBody>
+
+            
+
+            <S.MainContent>
+                <S.FloorLocation>
+
+                </S.FloorLocation>
+            </S.MainContent>
 
             <S.ModalOverlay showModal={showModal} onClick={handleCloseModal} />
             <S.Modal showModal={showModal}>
                 <S.ModalContent>
-                    <S.ModalBox>
-                        <S.ModalText>오늘의 메뉴</S.ModalText>
-                        <S.MealContent>
-                            {menu && menu.map((menuItem, index) => (
-                                <S.MealList
-                                    key={index}
-                                    style={menuItem.name.includes("2") ? { color: "red"} : {}}
-                                >
-                                    {menuItem.name}
-                                </S.MealList>
-                            ))}
-                        </S.MealContent>
-                    </S.ModalBox>
+                <S.ModalBox>
+                    <S.ModalText>오늘의 메뉴</S.ModalText>
+                    <S.MealContent>
+                        {menu &&
+                            menu.map((menuItem, index) => {
+                                const splitedItems = menuItem.name.split("(");
+                                const cleanedMenuItem = splitedItems[0].trim();
+                                const hasNumberTwo = menuItem.hasNumberTwo;
+
+                                return (
+                                    <S.MealList key={index}>
+                                        {hasNumberTwo ? (
+                                            <S.RedText>{cleanedMenuItem}</S.RedText>
+                                        ) : (
+                                            cleanedMenuItem
+                                        )}
+                                    </S.MealList>
+                                );
+                            })}
+                    </S.MealContent>
+                </S.ModalBox>
                 </S.ModalContent>
             </S.Modal>
+
+
 
             <button onClick={handleBtnClick}>구조 페이지로</button>
 
