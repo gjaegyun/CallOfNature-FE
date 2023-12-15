@@ -1,4 +1,4 @@
-import Main from './Main2';
+import Main from './Main';
 import Structure from './pages/Structure';
 import {Routes, Route} from 'react-router-dom';
 

@@ -1,13 +1,25 @@
 import key from './key';
+
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import axios from 'axios';
+import React from 'react';
+
+import ConIcon1 from './svg/ConIcon1';
+import ConIcon2 from './svg/ConIcon2';
+import ConIcon3 from './svg/ConIcon3';
+import ConIcon4 from './svg/ConIcon4';
+import PlusIcon from './svg/PlusIcon';
+import MinusIcon from './svg/MinusIcon';
+
+import * as S from './style';
 
 function Main() {
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
-    const [cal, setCal] = useState();
-    const [menu, setMenu] = useState();
+    const [cal, setCal] = useState(0);
+    const [menu, setMenu] = useState([]);
     const [currentTime, setCurrentTime] = useState(new Date());
     const navigate = useNavigate();
 
@@ -17,7 +29,7 @@ function Main() {
 
     useEffect(() => {
         Api();
-    },[])
+    },[]);
 
     useEffect(() => {
         const intervalId = setInterval(() => { //setInterval함수는 실행된 후에 interval ID를 반환함 -> 이것을 intervalId 변수에 저장
@@ -78,6 +90,7 @@ function Main() {
 
         axios.get(cleanedURL)
         .then((response) => {
+            console.log(response);
             const data = response.data.mealServiceDietInfo[1].row[0];
             setDatas(data);
 
@@ -88,6 +101,7 @@ function Main() {
             setCal(CAL);
 
             const MENU = data.DDISH_NM; 
+            console.log(MENU);
             setMenu(parseMenu(MENU));
             
             console.log(menu);
@@ -124,9 +138,31 @@ function Main() {
 
     return (
         <>
-            <div>Wanna shit</div>
+        <S.Body>
+            <S.NavBar>
+                <S.ConIcon>
+                    <ConIcon1/>
+                    <ConIcon2/>
+                    <ConIcon3/>
+                    <ConIcon4/>
+                </S.ConIcon>
+                <S.NavText>
+                    <S.MealText>
+                        급식
+                    </S.MealText>
+                    <S.ComplainText>
+                        민원
+                    </S.ComplainText>
+                </S.NavText>
+            </S.NavBar>
 
-            <p></p>
+            <S.ContentBox>
+                <S.IconBox>
+                    <PlusIcon/>
+                    <MinusIcon/>
+                </S.IconBox>
+            </S.ContentBox>
+        </S.Body>
 
             <div>
                 현재 시간: {currentTime.toLocaleTimeString()}
