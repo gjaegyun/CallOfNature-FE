@@ -23,13 +23,18 @@ import MapComponent8 from './img/floor4/MapComponent8';
 import * as S from './style';
 
 function Main() {
-    const [selectedFloor, setSelectedFloor] = React.useState('floor1');
-    const [selectedLocation, setSelectedLocation] = React.useState('main');
+    const [remainInfo, setRemainInfo] = useState('');
+    const [selectedFloor, setSelectedFloor] = useState('floor1');
+    const [selectedLocation, setSelectedLocation] = useState('main');
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
     const [cal, setCal] = useState(0);
     const [menu, setMenu] = useState([]);
+    const [location, setLocation] = useState("MAIN");
+    const [floor, setFloor] = useState("FIRST")
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
     const [currentTime, setCurrentTime] = useState(new Date());
     const navigate = useNavigate();
 
@@ -37,6 +42,13 @@ function Main() {
     let month = currentTime.getMonth() + 1;
     let date = currentTime.getDate();
 
+    useEffect(() => {
+        mealApi();
+    },[])
+
+    useEffect(() => {
+        Api();
+    }, [location, floor])
 
     useEffect(() => {
         const intervalId = setInterval(() => { //setInterval함수는 실행된 후에 interval ID를 반환함 -> 이것을 intervalId 변수에 저장
@@ -91,14 +103,22 @@ function Main() {
     }
 
     const Api = () => {
-        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/wapoo/MAIN/FOURTH`;
-        axios.get(URL)
-        .then((response) => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.log(error);
-        })
+        if (!loading) {
+            setLoading(true); 
+
+            const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/wapoo/${location}/${floor}`;
+            axios.get(URL)
+                .then((response) => {
+                    setRemainInfo(response.data);
+                })
+                .catch((error) => {
+                    setError(error);
+                    console.log(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
     }
 
     const mealApi = () => {
@@ -108,7 +128,6 @@ function Main() {
 
         axios.get(cleanedURL)
         .then((response) => {
-            console.log(response);
             const data = response.data.mealServiceDietInfo[1].row[0];
             setDatas(data);
 
@@ -119,11 +138,7 @@ function Main() {
             setCal(CAL);
 
             const MENU = data.DDISH_NM; 
-            console.log(MENU);
             setMenu(parseMenu(MENU));
-            
-            console.log(menu);
-            console.log(datas);
         })
         .catch((error) => {
             console.log(error);
@@ -167,13 +182,15 @@ function Main() {
     const handleMainLocationClick = () => {
         setSelectedLocation('main');
         setSelectedFloor('floor1');
-
+        setLocation("MAIN");
+        setFloor("FIRST");
     };
 
     const handleServLocationClick = () => {
         setSelectedLocation('serv');
         setSelectedFloor('floor1'); 
-
+        setLocation("GEUMBONG");
+        setFloor("FIRST");
     };
 
     const renderSelectedMapComponent = () => {
@@ -182,13 +199,13 @@ function Main() {
 
         switch (selectedFloor) {
             case 'floor1':
-                return (mainSelected && <MapComponent1 />) || (servSelected && <MapComponent5 />);
+                return (mainSelected && <MapComponent5 />) || (servSelected && <MapComponent1 />);
             case 'floor2':
-                return (mainSelected && <MapComponent2 />) || (servSelected && <MapComponent6 />);
+                return (mainSelected && <MapComponent6 />) || (servSelected && <MapComponent2 />);
             case 'floor3':
-                return (mainSelected && <MapComponent3 />) || (servSelected && <MapComponent7 />);
+                return (mainSelected && <MapComponent7 />) || (servSelected && <MapComponent3 />);
             case 'floor4':
-                return (mainSelected && <MapComponent4 />) || (servSelected && <MapComponent8 />);
+                return (mainSelected && <MapComponent8 />) || (servSelected && <MapComponent4 />);
             default:
                 return null;
         }
@@ -196,7 +213,28 @@ function Main() {
 
     const handleFloorClick = (floor) => {
         if (selectedLocation === 'main' || selectedLocation === 'serv') {
+            let translatedFloor;
+    
+            switch (floor.toUpperCase()) {
+                case 'FLOOR1':
+                    translatedFloor = 'FIRST';
+                    break;
+                case 'FLOOR2':
+                    translatedFloor = 'SECOND';
+                    break;
+                case 'FLOOR3':
+                    translatedFloor = 'THIRD';
+                    break;
+                case 'FLOOR4':
+                    translatedFloor = 'FOURTH';
+                    break;
+                default:
+                    translatedFloor = floor.toUpperCase();
+                    break;
+            }
+    
             setSelectedFloor(floor);
+            setFloor(translatedFloor);
         }
     };
 
@@ -289,8 +327,62 @@ function Main() {
                             </S.Floorlist>
                         </S.FloorLocation>
 
-
+                        
                     </S.MainContent>
+
+                    <S.RemainToiletContainer>
+                        {location === 'GEUMBONG' && (floor === 'THIRD' || floor === 'FOURTH') ? (
+                            !remainInfo ? (
+                                <>
+                                    <S.RemainToilet gender="male">
+                                        <S.RemainText gender="male">
+                                            남은 남자 화장실
+                                        </S.RemainText>
+                                        <S.RemainNum gender="male">
+                                            {remainInfo.male}칸
+                                        </S.RemainNum>
+                                    </S.RemainToilet>
+                                    <S.RemainToilet gender="female">
+                                        <S.RemainText gender="female">
+                                            남은 여자 화장실
+                                        </S.RemainText>
+                                        <S.RemainNum gender="female">
+                                            {remainInfo.female}칸
+                                        </S.RemainNum>
+                                    </S.RemainToilet>
+                                </>
+                            ) : (
+                                <>
+                                    <S.RemainToilet noData={"something"}>
+                                        <S.RemainText noData={"something"}>
+                                            해당하는 데이터가 존재하지 않습니다.
+                                        </S.RemainText>
+                                    </S.RemainToilet>
+                                </>
+                            )
+                        ) : (
+                            <>
+                                <S.RemainToilet gender="male">
+                                    <S.RemainText gender="male">
+                                        남은 남자 화장실
+                                    </S.RemainText>
+                                    <S.RemainNum gender="male">
+                                        {remainInfo.male}칸
+                                    </S.RemainNum>
+                                </S.RemainToilet>
+                                
+                                    <S.RemainToilet gender="female">
+                                        <S.RemainText gender="female">
+                                            남은 여자 화장실
+                                        </S.RemainText>
+                                        <S.RemainNum gender="female">
+                                            {remainInfo.female}칸
+                                        </S.RemainNum>
+                                    </S.RemainToilet>
+                                
+                            </>
+                        )}
+                    </S.RemainToiletContainer>
                 </S.Body>
                 
             </S.StyledBody>
@@ -321,10 +413,6 @@ function Main() {
                 </S.ModalBox>
                 </S.ModalContent>
             </S.Modal>
-
-
-
-            <button onClick={handleBtnClick}>구조 페이지로</button>
 
             <button onClick={Api}>API</button>
         </>

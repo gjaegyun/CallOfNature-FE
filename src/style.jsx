@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const getFloorStyle = (selectedLocation, selectedFloor, currentFloor) => {
+export const getFloorStyle = (selectedLocation, selectedFloor, currentFloor) => {
     const isSelected = selectedLocation === currentFloor.location && selectedFloor === currentFloor.floor;
     const isMainLocation = selectedLocation === 'main';
     const backgroundColor = isSelected ? '#8bde22' : isMainLocation ? '#f0f1f2' : '#fff';
@@ -126,7 +126,7 @@ export const TimerBox = styled.div`
 
 export const Timer = styled.div`
     display: inline-flex;
-    height: 3.5rem;
+    height: 2rem;
     justify-content: center;
     align-items: center;
     gap: 0.625rem;
@@ -390,3 +390,49 @@ export const Floor2Text = styled(FloorText)``;
 export const Floor3Text = styled(FloorText)``;
 
 export const Floor4Text = styled(FloorText)``;
+
+export const RemainToiletContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.25rem;
+`
+
+export const RemainToilet = styled.div`
+  display: flex;
+  width: 37.5rem;
+  padding: 1rem 0rem;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  border-radius: 0.625rem;
+  border: 1px solid ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
+  
+  border: 1px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? 'red' : 'blue')};
+`;
+
+export const RemainText = styled.p`
+  color: ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding-left: 1rem;
+
+  color: ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? 'red' : 'blue')};
+`;
+
+export const RemainNum = styled.p`
+  color: ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+  padding-right: 1rem;
+`
