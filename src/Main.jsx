@@ -11,6 +11,8 @@ import ConIcon2 from './svg/ConIcon2';
 import ConIcon3 from './svg/ConIcon3';
 import ConIcon4 from './svg/ConIcon4';
 
+import DangerousIcon from './svg/DangerousIcon';
+
 import MapComponent1 from './img/floor1/MapComponent1';
 import MapComponent2 from './img/floor2/MapComponent2';
 import MapComponent3 from './img/floor3/MapComponent3';
@@ -24,19 +26,27 @@ import * as S from './style';
 
 function Main() {
     const [remainInfo, setRemainInfo] = useState('');
+
     const [selectedFloor, setSelectedFloor] = useState('floor1');
     const [selectedLocation, setSelectedLocation] = useState('main');
+
     const [showModal, setShowModal] = useState(false);
+
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
+
     const [cal, setCal] = useState(0);
     const [menu, setMenu] = useState([]);
+
     const [location, setLocation] = useState("MAIN");
     const [floor, setFloor] = useState("FIRST")
+
     const [loading, setLoading] = useState(false);
+
     const [error, setError] = useState(null);
+
     const [currentTime, setCurrentTime] = useState(new Date());
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     let year = currentTime.getFullYear();
     let month = currentTime.getMonth() + 1;
@@ -51,11 +61,11 @@ function Main() {
     }, [location, floor])
 
     useEffect(() => {
-        const intervalId = setInterval(() => { //setInterval함수는 실행된 후에 interval ID를 반환함 -> 이것을 intervalId 변수에 저장
-            setCurrentTime(new Date());//setInterval로 1초마다 현재시간을 얻어와서 currentTime상태를 업데이트해줌
+        const intervalId = setInterval(() => {
+            setCurrentTime(new Date());
         }, 1000);
 
-        return () => clearInterval(intervalId);//clearInterval(intervalId)를 써서 interval을 정리
+        return () => clearInterval(intervalId);
     }, []);
 
     useEffect(() => {
@@ -123,7 +133,7 @@ function Main() {
 
     const mealApi = () => {
         const mealCode = getMealCode();
-        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231219&MMEAL_SC_CODE=${mealCode}`;
+        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231229&MMEAL_SC_CODE=${mealCode}`;
         const cleanedURL = URL.replace(/\(\)/g, '');
 
         axios.get(cleanedURL)
@@ -139,11 +149,14 @@ function Main() {
 
             const MENU = data.DDISH_NM; 
             setMenu(parseMenu(MENU));
+            console.log(MENU);
         })
         .catch((error) => {
             console.log(error);
         })
     }
+
+    
 
     const parseMenu = (menuString) => {
         const menuArray = menuString.split('<br/>');
@@ -158,18 +171,63 @@ function Main() {
             const splitedItems = menuItem.split("(");
             const hasNumberTwo = splitedItems[1]?.includes("2");
     
+            const numberMatch = splitedItems[1]?.match(/\d+/);
+            const number = numberMatch ? parseInt(numberMatch[0]) : null;
+    
             processedMenu.push({
                 name: cleanedMenuItem,
                 hasNumberTwo: hasNumberTwo,
+                number: number,
             });
         }
         return processedMenu;
     };
     
+    const renderMealList = () => {
+        return (
+            menu &&
+            menu.map((menuItem, index) => {
+                const cleanedMenuItem = menuItem.name;
+                const hasNumberTwo = menuItem.hasNumberTwo;
+                const number = menuItem.number;
+    
+                return (
+                    <S.MealList key={index}>
+                        {hasNumberTwo ? (
+                            (number === 12) ? (
+                                cleanedMenuItem
+                            ) : (
+                                <S.RedText>{cleanedMenuItem}</S.RedText>
+                            )
+                        ) : (
+                            cleanedMenuItem
+                        )}
+                    </S.MealList>
+                );
+            })
+        );
+    };
 
-    const handleBtnClick = () => {
-        navigate(`/structure`);
-    }
+    const renderDangerousContent = () => {
+        const hasNumberTwoInMenu = menu.some((menuItem) => menuItem.hasNumberTwo);
+    
+        return (
+            hasNumberTwoInMenu && (
+                <S.DangerousContent>
+                    <S.DangerousIconBox>
+                        <DangerousIcon />
+                    </S.DangerousIconBox>
+                    <S.DangerousText>
+                        오늘은 유제품이 나오는 날입니다!!!
+                    </S.DangerousText>
+                    <S.DangerousIconBox>
+                        <DangerousIcon />
+                    </S.DangerousIconBox>
+                </S.DangerousContent>
+            )
+        );
+    };
+
 
     const handleMealClick = () => {
         setShowModal(true);
@@ -245,8 +303,13 @@ function Main() {
                     <S.NavBar>
                         <S.ConIcon>
                             <ConIcon1/>
-                            <ConIcon2/>
-                            <ConIcon3/>
+                            <S.IncludeIcon3>
+                                <ConIcon2/>
+
+                                <S.Just>
+                                    <ConIcon3/>
+                                </S.Just>
+                            </S.IncludeIcon3>
                             <ConIcon4/>
                         </S.ConIcon>
                         <S.NavText>
@@ -355,7 +418,7 @@ function Main() {
                                 <>
                                     <S.RemainToilet noData={"something"}>
                                         <S.RemainText noData={"something"}>
-                                            해당하는 데이터가 존재하지 않습니다.
+                                            해당하는 화장실이 존재하지 않습니다.
                                         </S.RemainText>
                                     </S.RemainToilet>
                                 </>
@@ -383,38 +446,21 @@ function Main() {
                             </>
                         )}
                     </S.RemainToiletContainer>
+
+                    {renderDangerousContent()}
                 </S.Body>
-                
+
             </S.StyledBody>
 
             <S.ModalOverlay showModal={showModal} onClick={handleCloseModal} />
             <S.Modal showModal={showModal}>
-                <S.ModalContent>
+            <S.ModalContent>
                 <S.ModalBox>
                     <S.ModalText>오늘의 메뉴</S.ModalText>
-                    <S.MealContent>
-                        {menu &&
-                            menu.map((menuItem, index) => {
-                                const splitedItems = menuItem.name.split("(");
-                                const cleanedMenuItem = splitedItems[0].trim();
-                                const hasNumberTwo = menuItem.hasNumberTwo;
-
-                                return (
-                                    <S.MealList key={index}>
-                                        {hasNumberTwo ? (
-                                            <S.RedText>{cleanedMenuItem}</S.RedText>
-                                        ) : (
-                                            cleanedMenuItem
-                                        )}
-                                    </S.MealList>
-                                );
-                            })}
-                    </S.MealContent>
+                    <S.MealContent>{renderMealList()}</S.MealContent>
                 </S.ModalBox>
-                </S.ModalContent>
+            </S.ModalContent>
             </S.Modal>
-
-            <button onClick={Api}>API</button>
         </>
     );
 }

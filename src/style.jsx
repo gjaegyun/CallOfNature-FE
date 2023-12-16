@@ -42,6 +42,19 @@ export const ConIcon = styled.div`
     align-items: flex-start;
     gap: 0.125rem;
 `
+
+export const IncludeIcon3 = styled.div`
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+`
+
+export const Just = styled.div`
+  display: flex;
+  position: absolute;
+`
+
 export const NavText = styled.div`
     display: flex;
     align-items: flex-start;
@@ -435,4 +448,28 @@ export const RemainNum = styled.p`
   line-height: normal;
   margin: 0;
   padding-right: 1rem;
+`
+
+export const DangerousContent = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+`
+
+export const DangerousText = styled.p`
+  color: #D01313;
+  font-family: Inter;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+`
+
+export const DangerousIconBox = styled.div`
+  display: flex;
+  width: 1.5rem;
+  padding: 0.125rem 0.125rem 0.25rem 0.125rem;
+  justify-content: center;
+  align-items: center;
 `
