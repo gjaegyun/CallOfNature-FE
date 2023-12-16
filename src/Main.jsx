@@ -1,7 +1,11 @@
 import key from './key';
 
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+//import { useNavigate } from 'react-router-dom';
+
+import { ToastContainer, toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import axios from 'axios';
 import React from 'react';
@@ -48,6 +52,8 @@ function Main() {
     const [currentTime, setCurrentTime] = useState(new Date());
     //const navigate = useNavigate();
 
+    const notify = () => toast("쉬는시간이 종료되었습니다!");
+
     let year = currentTime.getFullYear();
     let month = currentTime.getMonth() + 1;
     let date = currentTime.getDate();
@@ -90,7 +96,8 @@ function Main() {
 
         for (const time of targetTimes) {
             if (currentHour === time.hour && currentMinute === time.minute && currentSeconds === time.seconds) {
-            alert("곧 종이 칩니다!");
+                console.log("toast!")
+                notify();
             }
         }
     }, [currentTime]);
@@ -116,7 +123,7 @@ function Main() {
         if (!loading) {
             setLoading(true); 
 
-            const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/wapoo/${location}/${floor}`;
+            const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/${location}/${floor}`;
             axios.get(URL)
                 .then((response) => {
                     setRemainInfo(response.data);
@@ -133,7 +140,7 @@ function Main() {
 
     const mealApi = () => {
         const mealCode = getMealCode();
-        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231229&MMEAL_SC_CODE=${mealCode}`;
+        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231227&MMEAL_SC_CODE=${mealCode}`;
         const cleanedURL = URL.replace(/\(\)/g, '');
 
         axios.get(cleanedURL)
@@ -449,7 +456,7 @@ function Main() {
 
                     {renderDangerousContent()}
                 </S.Body>
-
+                <ToastContainer/>
             </S.StyledBody>
 
             <S.ModalOverlay showModal={showModal} onClick={handleCloseModal} />
