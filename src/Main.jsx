@@ -11,15 +11,20 @@ import ConIcon2 from './svg/ConIcon2';
 import ConIcon3 from './svg/ConIcon3';
 import ConIcon4 from './svg/ConIcon4';
 
-import MapComponent1 from './img/MapComponent1';
-import MapComponent2 from './img/MapComponent2';
-import MapComponent3 from './img/MapComponent3';
-import MapComponent4 from './img/MapComponent4';
-import MapComponent5 from './img/MapComponent5';
+import MapComponent1 from './img/floor1/MapComponent1';
+import MapComponent2 from './img/floor2/MapComponent2';
+import MapComponent3 from './img/floor3/MapComponent3';
+import MapComponent4 from './img/floor4/MapComponent4';
+import MapComponent5 from './img/floor1/MapComponent5';
+import MapComponent6 from './img/floor2/MapComponent6';
+import MapComponent7 from './img/floor3/MapComponent7';
+import MapComponent8 from './img/floor4/MapComponent8';
 
 import * as S from './style';
 
 function Main() {
+    const [selectedFloor, setSelectedFloor] = React.useState('floor1');
+    const [selectedLocation, setSelectedLocation] = React.useState('main');
     const [showModal, setShowModal] = useState(false);
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
@@ -32,10 +37,6 @@ function Main() {
     let month = currentTime.getMonth() + 1;
     let date = currentTime.getDate();
 
-    useEffect(() => {
-        mealApi();
-        Api();
-    },[]);
 
     useEffect(() => {
         const intervalId = setInterval(() => { //setInterval함수는 실행된 후에 interval ID를 반환함 -> 이것을 intervalId 변수에 저장
@@ -163,6 +164,42 @@ function Main() {
         setShowModal(false);
     }
 
+    const handleMainLocationClick = () => {
+        setSelectedLocation('main');
+        setSelectedFloor('floor1');
+
+    };
+
+    const handleServLocationClick = () => {
+        setSelectedLocation('serv');
+        setSelectedFloor('floor1'); 
+
+    };
+
+    const renderSelectedMapComponent = () => {
+        const mainSelected = selectedLocation === 'main';
+        const servSelected = selectedLocation === 'serv';
+
+        switch (selectedFloor) {
+            case 'floor1':
+                return (mainSelected && <MapComponent1 />) || (servSelected && <MapComponent5 />);
+            case 'floor2':
+                return (mainSelected && <MapComponent2 />) || (servSelected && <MapComponent6 />);
+            case 'floor3':
+                return (mainSelected && <MapComponent3 />) || (servSelected && <MapComponent7 />);
+            case 'floor4':
+                return (mainSelected && <MapComponent4 />) || (servSelected && <MapComponent8 />);
+            default:
+                return null;
+        }
+    };
+
+    const handleFloorClick = (floor) => {
+        if (selectedLocation === 'main' || selectedLocation === 'serv') {
+            setSelectedFloor(floor);
+        }
+    };
+
     return (
         <>
             <S.StyledBody>
@@ -186,7 +223,7 @@ function Main() {
 
                     <S.ContentBox>
                         <S.MapBox>
-                            <MapComponent4/>
+                            {renderSelectedMapComponent()}
                         </S.MapBox>
                     </S.ContentBox>
 
@@ -197,17 +234,66 @@ function Main() {
                             </S.TimerText>
                         </S.Timer>
                     </S.TimerBox>
+
+                    <S.MainContent>
+                        <S.FloorLocation>
+                            <S.Location>
+                                <S.MainLocation onClick={handleMainLocationClick} selected={selectedLocation === 'main'}>
+                                    <S.MainLocationText selected={selectedLocation === 'main'}>
+                                    본관
+                                    </S.MainLocationText>
+                                </S.MainLocation>
+                                <S.ServLocation onClick={handleServLocationClick} selected={selectedLocation === 'serv'}>
+                                    <S.ServLocationText selected={selectedLocation === 'serv'}>
+                                    금봉관
+                                    </S.ServLocationText>
+                                </S.ServLocation>
+                            </S.Location>
+
+                            <S.Floorlist>
+                                <S.Floor1
+                                    onClick={() => handleFloorClick('floor1')}
+                                    selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor1'}
+                                >
+                                    <S.Floor1Text selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor1'} floor="floor1">
+                                        1층
+                                    </S.Floor1Text>
+                                </S.Floor1>
+
+                                <S.Floor2
+                                    onClick={() => handleFloorClick('floor2')}
+                                    selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor2'}
+                                >
+                                    <S.Floor2Text selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor2'} floor="floor2">
+                                        2층
+                                    </S.Floor2Text>
+                                </S.Floor2>
+
+                                <S.Floor3
+                                    onClick={() => handleFloorClick('floor3')}
+                                    selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor3'}
+                                >
+                                    <S.Floor3Text selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor3'} floor="floor3">
+                                        3층
+                                    </S.Floor3Text>
+                                </S.Floor3>
+
+                                <S.Floor4
+                                    onClick={() => handleFloorClick('floor4')}
+                                    selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor4'}
+                                >
+                                    <S.Floor4Text selected={(selectedLocation === 'main' || selectedLocation === 'serv') && selectedFloor === 'floor4'} floor="floor4">
+                                        4층
+                                    </S.Floor4Text>
+                                </S.Floor4>
+                            </S.Floorlist>
+                        </S.FloorLocation>
+
+
+                    </S.MainContent>
                 </S.Body>
                 
             </S.StyledBody>
-
-            
-
-            <S.MainContent>
-                <S.FloorLocation>
-
-                </S.FloorLocation>
-            </S.MainContent>
 
             <S.ModalOverlay showModal={showModal} onClick={handleCloseModal} />
             <S.Modal showModal={showModal}>
