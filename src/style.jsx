@@ -473,3 +473,115 @@ export const DangerousIconBox = styled.div`
   justify-content: center;
   align-items: center;
 `
+
+export const ComplainBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 27.25rem;
+  height: 37.625rem;
+  flex-shrink: 0;
+  fill: #fff;
+  filter: drop-shadow(1px 1px 6px rgba(172, 172, 172, 0.30));
+  position: relative;
+`
+
+export const ComplainGrayBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 24.875rem;
+  height: 29.375rem;
+  overflow-y: auto;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #F0F1F2;
+  gap: 1.2rem;
+  padding-top: 1.2rem;
+  position: relative;
+`
+
+export const ComplainContent = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  width: 22rem;
+  height: 3.5rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #fff;
+  box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
+`
+
+export const ComplainTextBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0.5rem;
+`
+
+export const ComplainBoxText = styled.p`
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  padding: 0;
+  margin: 0;
+`
+
+export const WriteBox = styled.div`
+  width: 22.5rem;
+  display: flex;
+  justify-content: flex-end;
+  background: #F0F1F2;
+  position: static;
+  padding-bottom: 1rem;
+`
+
+export const ComplainWrite = styled.button`
+  display: inline-flex;
+  padding: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+  border: none;
+  cursor: pointer;
+`
+
+export const WriteText = styled.p`
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+  letter-spacing: -0.04rem;
+  margin: 0;
+`
+
+export const CalanderText = styled.p`
+  color: #B8B8B8;
+  text-align: center;
+  font-family: Inter;
+  font-size: 0.65rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+`
+
+export const CalenderBox = styled.div`
+  display: flex;
+  flex-shrink: 0;
+`
+
+export const JustBox = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+`

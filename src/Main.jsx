@@ -26,6 +26,8 @@ import MapComponent6 from './img/floor2/MapComponent6';
 import MapComponent7 from './img/floor3/MapComponent7';
 import MapComponent8 from './img/floor4/MapComponent8';
 
+import CheckBox from './svg/CheckBox';
+
 import * as S from './style';
 
 function Main() {
@@ -35,6 +37,7 @@ function Main() {
     const [selectedLocation, setSelectedLocation] = useState('main');
 
     const [showModal, setShowModal] = useState(false);
+    const [showComplainModal, setShowComplainModal] = useState(false);
 
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
@@ -60,6 +63,7 @@ function Main() {
 
     useEffect(() => {
         mealApi();
+        ComplainApi();
     },[])
 
     useEffect(() => {
@@ -163,7 +167,20 @@ function Main() {
         })
     }
 
-    
+    const ComplainApi = () => {
+        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
+        axios.get(URL)
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            })
+    }
+
+    const PostComplain = () => {
+        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
+    }
 
     const parseMenu = (menuString) => {
         const menuArray = menuString.split('<br/>');
@@ -323,7 +340,7 @@ function Main() {
                             <S.MealText onClick={handleMealClick}>
                                 급식
                             </S.MealText>
-                            <S.ComplainText>
+                            <S.ComplainText  onClick={() => setShowComplainModal(true)}>
                                 민원
                             </S.ComplainText>
                         </S.NavText>
@@ -468,8 +485,55 @@ function Main() {
                 </S.ModalBox>
             </S.ModalContent>
             </S.Modal>
+
+
+            <S.ComplainBox>
+                <S.ComplainGrayBox>
+                    <S.ComplainContent>
+                        <S.ComplainTextBox>
+                            <S.JustBox>
+                            <CheckBox/>
+                            <S.ComplainBoxText>
+                                1층 2번째 칸 화장실 휴지가 없어요
+                            </S.ComplainBoxText>
+                            </S.JustBox>
+                            <S.CalenderBox>
+                                <S.CalanderText>
+                                    12월 8일
+                                </S.CalanderText>
+                            </S.CalenderBox>
+                        </S.ComplainTextBox>
+                    </S.ComplainContent>
+                    <S.ComplainContent>
+                        <S.ComplainTextBox>
+                            <S.JustBox>
+                            <CheckBox/>
+                            <S.ComplainBoxText>
+                                1층 2번째 칸 화장실 휴지가 없어요
+                            </S.ComplainBoxText>
+                            </S.JustBox>
+
+                            <S.CalenderBox>
+                                <S.CalanderText>
+                                    12월 8일
+                                </S.CalanderText>
+                            </S.CalenderBox>
+
+                        </S.ComplainTextBox>
+                    </S.ComplainContent>
+
+                <S.WriteBox>
+                    <S.ComplainWrite>
+                        <S.WriteText>
+                            작성 하기
+                        </S.WriteText>
+                    </S.ComplainWrite>
+                </S.WriteBox>
+                </S.ComplainGrayBox>
+            </S.ComplainBox>
+            
         </>
     );
 }
-    
+
 export default Main;
