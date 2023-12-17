@@ -217,6 +217,18 @@ export const ModalOverlay = styled.div`
     justify-content: center;
 `
 
+export const ComplainModalOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display:  ${(props) => (props.showComplainModal ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+`
+
 export const Modal = styled.div`
     position: fixed;
     top: 31%;
@@ -233,6 +245,18 @@ export const Modal = styled.div`
         width: 90vw;
     }
 `
+
+export const ComplainModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  height: 0;
+  width: 0;
+  display: ${(props) => (props.showComplainModal ? 'block' : 'none')};
+`
+
 
 export const RedText = styled.span`
     color: red;
@@ -478,8 +502,8 @@ export const ComplainBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 27.25rem;
-  height: 37.625rem;
+  width: 50%;
+  height: 50%;
   flex-shrink: 0;
   fill: #fff;
   filter: drop-shadow(1px 1px 6px rgba(172, 172, 172, 0.30));
@@ -557,9 +581,9 @@ export const WriteText = styled.p`
   color: #000;
   text-align: center;
   font-family: Inter;
-  font-size: 1rem;
+  font-size: small;
   font-style: normal;
-  font-weight: 800;
+  font-weight: 550;
   line-height: normal;
   letter-spacing: -0.04rem;
   margin: 0;

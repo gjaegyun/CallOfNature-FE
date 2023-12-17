@@ -41,6 +41,7 @@ function Main() {
 
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
+    const [complain, setComplain] = useState('');
 
     const [cal, setCal] = useState(0);
     const [menu, setMenu] = useState([]);
@@ -171,7 +172,8 @@ function Main() {
         const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
         axios.get(URL)
             .then((response) => {
-                console.log(response);
+                setComplain(response.data);
+                console.log(complain)
             })
             .catch((error) => {
                 console.log(error);
@@ -261,6 +263,14 @@ function Main() {
         setShowModal(false);
     }
 
+    const handleComplainClick = () => {
+        setShowComplainModal(true);
+    }
+
+    const handleComplainClose = () => {
+        setShowComplainModal(false);
+    }
+
     const handleMainLocationClick = () => {
         setSelectedLocation('main');
         setSelectedFloor('floor1');
@@ -340,7 +350,7 @@ function Main() {
                             <S.MealText onClick={handleMealClick}>
                                 급식
                             </S.MealText>
-                            <S.ComplainText  onClick={() => setShowComplainModal(true)}>
+                            <S.ComplainText onClick={handleComplainClick}>
                                 민원
                             </S.ComplainText>
                         </S.NavText>
@@ -486,52 +496,46 @@ function Main() {
             </S.ModalContent>
             </S.Modal>
 
+            <S.ComplainModalOverlay showComplainModal={showComplainModal} onClick={handleComplainClose}/>
+            <S.ComplainModal showComplainModal= {showComplainModal}>
+                <S.ComplainBox>
+                    <S.ComplainGrayBox>
+                        {complain.map((complains) =>
+                            <S.ComplainContent key={complains.id}>
+                                <S.ComplainTextBox>
+                                    <S.JustBox>
+                                    <CheckBox/>
+                                    <S.ComplainBoxText>
+                                    {complains.title.length >= 23
+                                    ? complains.title.substring(0, 23) +
+                                    (complains.title.charAt(23) === '.' ? '..' : '...')
+                                    : complains.title}
+                                    </S.ComplainBoxText>
+                                    </S.JustBox>
 
-            <S.ComplainBox>
-                <S.ComplainGrayBox>
-                    <S.ComplainContent>
-                        <S.ComplainTextBox>
-                            <S.JustBox>
-                            <CheckBox/>
-                            <S.ComplainBoxText>
-                                1층 2번째 칸 화장실 휴지가 없어요
-                            </S.ComplainBoxText>
-                            </S.JustBox>
-                            <S.CalenderBox>
-                                <S.CalanderText>
-                                    12월 8일
-                                </S.CalanderText>
-                            </S.CalenderBox>
-                        </S.ComplainTextBox>
-                    </S.ComplainContent>
-                    <S.ComplainContent>
-                        <S.ComplainTextBox>
-                            <S.JustBox>
-                            <CheckBox/>
-                            <S.ComplainBoxText>
-                                1층 2번째 칸 화장실 휴지가 없어요
-                            </S.ComplainBoxText>
-                            </S.JustBox>
+                                    <S.CalenderBox>
+                                        <S.CalanderText>
+                                            {complains.time.split('')[4]}
+                                            {complains.time.split('')[5]}월
+                                            {complains.time.split('')[6]}
+                                            {complains.time.split('')[7]}일
+                                        </S.CalanderText>
+                                    </S.CalenderBox>
 
-                            <S.CalenderBox>
-                                <S.CalanderText>
-                                    12월 8일
-                                </S.CalanderText>
-                            </S.CalenderBox>
+                                </S.ComplainTextBox>
+                            </S.ComplainContent>
+                        )}
 
-                        </S.ComplainTextBox>
-                    </S.ComplainContent>
-
-                <S.WriteBox>
-                    <S.ComplainWrite>
-                        <S.WriteText>
-                            작성 하기
-                        </S.WriteText>
-                    </S.ComplainWrite>
-                </S.WriteBox>
-                </S.ComplainGrayBox>
-            </S.ComplainBox>
-            
+                    <S.WriteBox>
+                        <S.ComplainWrite>
+                            <S.WriteText>
+                                작성 하기
+                            </S.WriteText>
+                        </S.ComplainWrite>
+                    </S.WriteBox>
+                    </S.ComplainGrayBox>
+                </S.ComplainBox>
+            </S.ComplainModal>
         </>
     );
 }
