@@ -229,6 +229,18 @@ export const ComplainModalOverlay = styled.div`
   justify-content: center;
 `
 
+export const ComplainWriteOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${(props) => (props.showWriteModal ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+`
+
 export const Modal = styled.div`
     position: fixed;
     top: 31%;
@@ -255,6 +267,17 @@ export const ComplainModal = styled.div`
   height: 0;
   width: 0;
   display: ${(props) => (props.showComplainModal ? 'block' : 'none')};
+`
+
+export const ComplainWriteModal = styled.div`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  height: 0;
+  width: 0;
+  display: ${(props) => (props.showWriteModal ? 'block' : 'none')};
 `
 
 
@@ -526,6 +549,27 @@ export const ComplainGrayBox = styled.div`
   position: relative;
 `
 
+export const ComplainInputBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24.875rem;
+  height: 29.375rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #F0F1F2;
+`
+
+export const ComplainWhiteBox = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 20.875rem;
+  height: 25.375rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #fff;
+`
+
 export const ComplainContent = styled.div`
   display: flex;
   justify-content: flex-start;
@@ -559,21 +603,29 @@ export const ComplainBoxText = styled.p`
 `
 
 export const WriteBox = styled.div`
-  width: 22.5rem;
+  padding-top: 1rem;
+  align-items: center;
+  width: 23.75rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   background: #F0F1F2;
-  position: static;
-  padding-bottom: 1rem;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
 `
 
 export const ComplainWrite = styled.button`
   display: inline-flex;
-  padding: 0.625rem;
+  padding: 1rem;
+  width: 50%;
   justify-content: center;
   align-items: center;
   gap: 0.625rem;
   border: none;
+  background: #fff;
+  border-radius: 0.625rem;
+  box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
+  margin-bottom: 1rem;
   cursor: pointer;
 `
 
@@ -608,4 +660,55 @@ export const JustBox = styled.div`
   display: flex;
   gap: 0.5rem;
   align-items: center;
+`
+export const InputLine = styled.textarea`
+  display: flex;
+  width: 18.3125rem;
+  height: 20rem;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  color: black;
+  font-family: Mulish;
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+  margin: 0;
+  border: none;
+  white-space: pre-wrap;
+  resize: none;
+  outline: none;
+`
+
+export const FinishWrite = styled.button`
+  display: inline-flex;
+  padding: 0.625rem;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background: #F0F1F2;
+  cursor: pointer;
+  border-radius: 0.625rem;
+  box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
+`
+
+export const FinishText = styled.p`
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: small;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+  letter-spacing: -0.04rem;
+  margin: 0;
+`
+
+export const FinishDirection = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 23rem;
+  padding-top: 1rem;
 `

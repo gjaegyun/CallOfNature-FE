@@ -33,11 +33,14 @@ import * as S from './style';
 function Main() {
     const [remainInfo, setRemainInfo] = useState('');
 
+    const [inputTitle, setInputTitle] = useState('');
+
     const [selectedFloor, setSelectedFloor] = useState('floor1');
     const [selectedLocation, setSelectedLocation] = useState('main');
 
     const [showModal, setShowModal] = useState(false);
     const [showComplainModal, setShowComplainModal] = useState(false);
+    const [showWriteModal, setShowWriteModal] = useState(false);
 
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
@@ -57,6 +60,8 @@ function Main() {
     //const navigate = useNavigate();
 
     const notify = () => toast("쉬는시간이 종료되었습니다!");
+    const postNotify = () => toast('정상 등록되었습니다!');
+    const NothingNotify = () => toast('지랄하지 말아주세요');
 
     let year = currentTime.getFullYear();
     let month = currentTime.getMonth() + 1;
@@ -173,7 +178,8 @@ function Main() {
         axios.get(URL)
             .then((response) => {
                 setComplain(response.data);
-                console.log(complain)
+                console.log(complain);
+                
             })
             .catch((error) => {
                 console.log(error);
@@ -181,8 +187,27 @@ function Main() {
     }
 
     const PostComplain = () => {
+        console.log(1);
+        if (inputTitle.length === 0) {
+            NothingNotify();
+            return;
+        }
+    
         const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
-    }
+        axios.post(URL, { title: inputTitle })
+            .then((response) => {
+                console.log(response.data);
+                console.log("Success", response)
+                setInputTitle('');
+                postNotify();
+                ComplainApi();
+                setShowWriteModal(false);
+                setShowComplainModal(true);
+            })
+            .catch((error) => {
+                console.log('Error:', error);
+            });
+    };
 
     const parseMenu = (menuString) => {
         const menuArray = menuString.split('<br/>');
@@ -269,6 +294,16 @@ function Main() {
 
     const handleComplainClose = () => {
         setShowComplainModal(false);
+    }
+
+    const handleWriteClick = () => {
+        setShowWriteModal(true);
+        setShowComplainModal(false);
+    }
+
+    const handleWriteClose = () => {
+        setShowWriteModal(false);
+        setShowComplainModal(true);
     }
 
     const handleMainLocationClick = () => {
@@ -500,7 +535,7 @@ function Main() {
             <S.ComplainModal showComplainModal= {showComplainModal}>
                 <S.ComplainBox>
                     <S.ComplainGrayBox>
-                        {complain.map((complains) =>
+                        {Array.isArray(complain) && complain.map((complains) =>
                             <S.ComplainContent key={complains.id}>
                                 <S.ComplainTextBox>
                                     <S.JustBox>
@@ -527,7 +562,7 @@ function Main() {
                         )}
 
                     <S.WriteBox>
-                        <S.ComplainWrite>
+                        <S.ComplainWrite onClick={handleWriteClick}>
                             <S.WriteText>
                                 작성 하기
                             </S.WriteText>
@@ -536,6 +571,31 @@ function Main() {
                     </S.ComplainGrayBox>
                 </S.ComplainBox>
             </S.ComplainModal>
+
+            <S.ComplainWriteOverlay showWriteModal={showWriteModal} onClick={handleWriteClose}/>
+            <S.ComplainWriteModal showWriteModal={showWriteModal}>
+                <S.ComplainBox>
+                    <S.ComplainInputBox>
+                        <S.ComplainWhiteBox>
+                            <S.FinishDirection>
+                                <S.InputLine
+                                    type='text'
+                                    placeholder=" 민원을 하실 내용을 적어주세요.
+                                    &#13;&#10;EX) 본관 1층 1번째 칸 화장실 휴지가 없어요."
+                                    value={inputTitle}
+                                    onChange={(e) => setInputTitle(e.target.value)}
+                                />
+                                <S.FinishWrite onClick={PostComplain}>
+                                    <S.FinishText>
+                                        작성 마치기
+                                    </S.FinishText>
+                                </S.FinishWrite>
+                            </S.FinishDirection>
+                            
+                        </S.ComplainWhiteBox>
+                    </S.ComplainInputBox>
+                </S.ComplainBox>
+            </S.ComplainWriteModal>
         </>
     );
 }
