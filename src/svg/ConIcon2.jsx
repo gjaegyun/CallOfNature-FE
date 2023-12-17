@@ -24,7 +24,7 @@ const ConIcon2 = () => (
                 />
                 <stop 
                     offset="1" 
-                    stop-color="#F7E11A"
+                    stopColor="#F7E11A"
                 />
             </linearGradient>
         </defs>

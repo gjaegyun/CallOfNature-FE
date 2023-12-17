@@ -157,13 +157,14 @@ function Main() {
 
     const mealApi = () => {
         const mealCode = getMealCode();
-        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231227&MMEAL_SC_CODE=${mealCode}`;
+        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${key}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=${year}${month}${date}&MMEAL_SC_CODE=${mealCode}`;
         const cleanedURL = URL.replace(/\(\)/g, '');
 
         axios.get(cleanedURL)
         .then((response) => {
             const data = response.data.mealServiceDietInfo[1].row[0];
             setDatas(data);
+            console.log(datas);
 
             const sName = data.SCHUL_NM;
             setName(sName);
@@ -227,7 +228,8 @@ function Main() {
             const cleanedMenuItem = menuItem.replace(/[^가-힣\s]/g, '').trim();
     
             const splitedItems = menuItem.split("(");
-            const hasNumberTwo = splitedItems[1]?.includes("2");
+            console.log("splitedItems",splitedItems.length-1);
+            const hasNumberTwo = splitedItems[splitedItems.length-1]?.includes("2");
     
             const numberMatch = splitedItems[1]?.match(/\d+/);
             const number = numberMatch ? parseInt(numberMatch[0]) : null;
@@ -248,6 +250,9 @@ function Main() {
                 const cleanedMenuItem = menuItem.name;
                 const hasNumberTwo = menuItem.hasNumberTwo;
                 const number = menuItem.number;
+                //console.log("cleanedMenuItem", cleanedMenuItem);
+                //console.log("hasNumberTwo", hasNumberTwo);
+                //console.log("number", number);
     
                 return (
                     <S.MealList key={index}>

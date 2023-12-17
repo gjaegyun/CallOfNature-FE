@@ -22,7 +22,7 @@ const Complain = () => (
             width="27.25rem" 
             height="32.625rem" 
             filterUnits="userSpaceOnUse" 
-            color-interpolation-filters="sRGB"
+            colorInterpolationFilters="sRGB"
         >
             <feFlood 
                 flood-opacity="0" 
