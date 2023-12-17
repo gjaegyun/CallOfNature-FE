@@ -29,6 +29,7 @@ import MapComponent8 from './img/floor4/MapComponent8';
 import CheckBox from './svg/CheckBox';
 
 import * as S from './style';
+import { Toaster } from 'react-hot-toast';
 
 function Main() {
     const [remainInfo, setRemainInfo] = useState('');
@@ -59,9 +60,15 @@ function Main() {
     const [currentTime, setCurrentTime] = useState(new Date());
     //const navigate = useNavigate();
 
-    const notify = () => toast("쉬는시간이 종료되었습니다!");
-    const postNotify = () => toast('정상 등록되었습니다!');
-    const NothingNotify = () => toast('지랄하지 말아주세요');
+    const notify = () => {
+        toast.error("쉬는시간이 끝났습니다!")
+    }
+    const postNotify = () => {
+        toast.success("정상적으로 등록되었습니다!")
+    }
+    const NothingNotify = () => {
+        toast.error("입력을 해주세요!")
+    }
 
     let year = currentTime.getFullYear();
     let month = currentTime.getMonth() + 1;
@@ -596,6 +603,12 @@ function Main() {
                     </S.ComplainInputBox>
                 </S.ComplainBox>
             </S.ComplainWriteModal>
+            <div>
+                <Toaster
+                    position="top-right"
+                    reverseOrder={true}
+                />
+            </div>
         </>
     );
 }

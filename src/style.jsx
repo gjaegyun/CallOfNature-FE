@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { ToastContainer } from 'react-toastify';
 
 export const getFloorStyle = (selectedLocation, selectedFloor, currentFloor) => {
     const isSelected = selectedLocation === currentFloor.location && selectedFloor === currentFloor.floor;
