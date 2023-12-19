@@ -1,4 +1,3 @@
-import key from './key';
 import 'dotenv';
 
 import { useEffect, useState } from 'react';
