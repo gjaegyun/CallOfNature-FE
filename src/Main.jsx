@@ -1,5 +1,3 @@
-import 'dotenv';
-
 import { useEffect, useState } from 'react';
 //import { useNavigate } from 'react-router-dom';
 
@@ -159,7 +157,7 @@ function Main() {
 
     const mealApi = () => {
         const mealCode = getMealCode();
-        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${process.env.KEY}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=${year}${month}${date}&MMEAL_SC_CODE=${mealCode}`;
+        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${process.env.REACT_APP_KEY}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=${year}${month}${date}&MMEAL_SC_CODE=${mealCode}`;
         const cleanedURL = URL.replace(/\(\)/g, '');
 
         axios.get(cleanedURL)
