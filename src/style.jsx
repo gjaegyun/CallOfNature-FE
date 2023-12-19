@@ -272,9 +272,6 @@ export const Modal = styled.div`
     border-radius: 1rem;
     border-top-right-radius: 0;
     width: 17vw;
-    display : flex;
-    justify-content: center;
-    align-items: center;
 `
 
 export const ComplainModal = styled.div`
