@@ -77,11 +77,11 @@ function Main() {
     useEffect(() => {
         mealApi();
         ComplainApi();
-    },[])
+    }, [])
 
     useEffect(() => {
         Api();
-    }, [location, floor])
+    }, [/*currentTime*/]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -138,22 +138,22 @@ function Main() {
     }
 
     const Api = () => {
-        if (!loading) {
-            setLoading(true); 
 
             const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/${location}/${floor}`;
             axios.get(URL)
                 .then((response) => {
-                    setRemainInfo(response.data);
+                    if(response.data !== remainInfo) {
+                        setRemainInfo(response.data);
+                        console.log("remainInfo", remainInfo);
+                    } else {
+                        console.log('adsff');
+                    }
                 })
                 .catch((error) => {
                     setError(error);
                     console.log(error);
                 })
-                .finally(() => {
-                    setLoading(false);
-                });
-        }
+        
     }
 
     const mealApi = () => {
