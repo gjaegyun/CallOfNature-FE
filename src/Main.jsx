@@ -24,7 +24,8 @@ import MapComponent6 from './img/floor2/MapComponent6';
 import MapComponent7 from './img/floor3/MapComponent7';
 import MapComponent8 from './img/floor4/MapComponent8';
 
-import CheckBox from './svg/CheckBox';
+import CheckIcon from './svg/CheckIcon';
+import RejectIcon from './svg/RejectIcon';
 
 import * as S from './style';
 import { Toaster } from 'react-hot-toast';
@@ -185,7 +186,7 @@ function Main() {
         const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
         axios.get(URL)
             .then((response) => {
-                setComplain(response.data);
+                setComplain(response.data.sort((a, b) => b.id - a.id));
                 console.log(complain);
                 
             })
@@ -538,31 +539,31 @@ function Main() {
             <S.ComplainModal showComplainModal= {showComplainModal}>
                 <S.ComplainBox>
                     <S.ComplainGrayBox>
-                        {Array.isArray(complain) && complain.map((complains) =>
-                            <S.ComplainContent key={complains.id}>
-                                <S.ComplainTextBox>
-                                    <S.JustBox>
-                                    <CheckBox/>
+                    {Array.isArray(complain) && complain.map((complains) =>  
+                        <S.ComplainContent key={complains.id}>
+                            <S.ComplainTextBox>
+                                <S.JustBox>
+                                    {complains.id === 1 || complains.id === 3 ? <CheckIcon/> : <RejectIcon/>}
                                     <S.ComplainBoxText>
-                                    {complains.title.length >= 23
-                                    ? complains.title.substring(0, 23) +
-                                    (complains.title.charAt(23) === '.' ? '..' : '...')
-                                    : complains.title}
+                                        {complains.title.length >= 23
+                                        ? complains.title.substring(0, 23) +
+                                        (complains.title.charAt(23) === '.' ? '..' : '...')
+                                        : complains.title}
                                     </S.ComplainBoxText>
-                                    </S.JustBox>
+                                </S.JustBox>
 
-                                    <S.CalenderBox>
-                                        <S.CalanderText>
-                                            {complains.time.split('')[4]}
-                                            {complains.time.split('')[5]}월
-                                            {complains.time.split('')[6]}
-                                            {complains.time.split('')[7]}일
-                                        </S.CalanderText>
-                                    </S.CalenderBox>
+                                <S.CalenderBox>
+                                    <S.CalanderText>
+                                        {complains.time.split('')[4]}
+                                        {complains.time.split('')[5]}월
+                                        {complains.time.split('')[6]}
+                                        {complains.time.split('')[7]}일
+                                    </S.CalanderText>
+                                </S.CalenderBox>
+                            </S.ComplainTextBox>
+                        </S.ComplainContent>
+                    )}
 
-                                </S.ComplainTextBox>
-                            </S.ComplainContent>
-                        )}
 
                     <S.WriteBox>
                         <S.ComplainWrite onClick={handleWriteClick}>

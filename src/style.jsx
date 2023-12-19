@@ -300,7 +300,6 @@ export const RedText = styled.span`
     color: red;
 `;
 
-
 export const FloorButton = styled.button`
   display: flex;
   padding: 0.375rem 1rem;
