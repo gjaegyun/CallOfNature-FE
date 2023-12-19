@@ -270,7 +270,7 @@ export const Modal = styled.div`
     background-color: #fff;
     display: ${(props) => (props.showModal ? 'block' : 'none')};
     border-radius: 1rem;
-    width: 30rem;
+    width: 50%;
 `
 
 export const ComplainModal = styled.div`
