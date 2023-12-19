@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { ToastContainer } from 'react-toastify';
 
 export const getFloorStyle = (selectedLocation, selectedFloor, currentFloor) => {
     const isSelected = selectedLocation === currentFloor.location && selectedFloor === currentFloor.floor;
@@ -169,10 +168,10 @@ export const Timer = styled.div`
 
 export const TimerText = styled.div`
     color: var(--yellow_black, #252621);
-    font-family: monospace;
+    font-family: Inter;
     font-size: 1.575rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
     float: left;
 `
@@ -264,17 +263,19 @@ export const ComplainWriteOverlay = styled.div`
 
 export const Modal = styled.div`
     position: fixed;
-    top: 31%;
-    left: 52%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
     padding: 1.5rem;
     background-color: #fff;
     display: ${(props) => (props.showModal ? 'block' : 'none')};
     border-radius: 1rem;
-    border-top-right-radius: 0;
     width: 17vw; 
 
     @media (max-width: 767px) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 90vw;
     }
 `
