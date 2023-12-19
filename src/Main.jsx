@@ -91,6 +91,7 @@ function Main() {
         return () => clearInterval(intervalId);
     }, []);
 
+
     useEffect(() => {
         const currentHour = currentTime.getHours();
         const currentMinute = currentTime.getMinutes();
@@ -162,9 +163,9 @@ function Main() {
 
         axios.get(cleanedURL)
         .then((response) => {
+            console.log("response", response);
             const data = response.data.mealServiceDietInfo[1].row[0];
             setDatas(data);
-            console.log(datas);
 
             const sName = data.SCHUL_NM;
             setName(sName);
@@ -172,12 +173,12 @@ function Main() {
             const CAL = data.CAL_INFO;
             setCal(CAL);
 
-            const MENU = data.DDISH_NM; 
-            setMenu(parseMenu(MENU));
+            let MENU = data.DDISH_NM.toString().replace(/[*]/g, '').split('<br/>')
             console.log(MENU);
+            setMenu(parseMenu(MENU));
         })
         .catch((error) => {
-            console.log(error);
+            console.log(error); 
         })
     }
 
@@ -217,27 +218,26 @@ function Main() {
             });
     };
 
+
+
     const parseMenu = (menuString) => {
-        const menuArray = menuString.split('<br/>');
-        const processedMenu = [];
-    
-        for (const item of menuArray) {
+        let processedMenu = [];
+        for (const item of menuString) {
+            
             const parts = item.split(/\.\.\./);
             const menuItem = parts[0].trim();
+            console.log("menuItem", menuItem);
     
-            const cleanedMenuItem = menuItem.replace(/[^가-힣\s]/g, '').trim();
+            const cleanedMenuItem = menuItem.replace(/\(\d+(\.\d+)*\)/g, '');
     
             const splitedItems = menuItem.split("(");
-            console.log("splitedItems",splitedItems.length-1);
-            const hasNumberTwo = splitedItems[splitedItems.length-1]?.includes("2");
-    
-            const numberMatch = splitedItems[1]?.match(/\d+/);
-            const number = numberMatch ? parseInt(numberMatch[0]) : null;
+            console.log("splitedItems", splitedItems)
+            const hasNumberTwo = splitedItems[splitedItems.length - 1]?.replace("12", '%').includes("2");
+            console.log("hasNumberTwo", hasNumberTwo)
     
             processedMenu.push({
                 name: cleanedMenuItem,
                 hasNumberTwo: hasNumberTwo,
-                number: number,
             });
         }
         return processedMenu;
@@ -249,19 +249,11 @@ function Main() {
             menu.map((menuItem, index) => {
                 const cleanedMenuItem = menuItem.name;
                 const hasNumberTwo = menuItem.hasNumberTwo;
-                const number = menuItem.number;
-                //console.log("cleanedMenuItem", cleanedMenuItem);
-                //console.log("hasNumberTwo", hasNumberTwo);
-                //console.log("number", number);
     
                 return (
                     <S.MealList key={index}>
                         {hasNumberTwo ? (
-                            (number === 12) ? (
-                                cleanedMenuItem
-                            ) : (
-                                <S.RedText>{cleanedMenuItem}</S.RedText>
-                            )
+                            <S.RedText>{cleanedMenuItem}</S.RedText>
                         ) : (
                             cleanedMenuItem
                         )}

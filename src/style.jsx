@@ -120,6 +120,26 @@ export const ContentBox = styled.div`
     border-radius: 0.625rem;
     background: #F0F1F2;
     overflow: auto;
+    &::-webkit-scrollbar {
+      width: 5rem;
+      height: 0.75rem;
+      padding-left: 1.25rem;
+      padding-bottom: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #D9D9D9;
+      border: #D9D9D9;
+      border-radius: 0.625rem;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: gray;
+    }
+    &::-webkit-scrollbar-track {
+      padding-left: 1.25rem;
+      padding-bottom: 0.5rem;
+    }
 `
 
 export const MapBox = styled.div`
@@ -548,6 +568,25 @@ export const ComplainGrayBox = styled.div`
   gap: 1.2rem;
   padding-top: 1.2rem;
   position: relative;
+
+  &::-webkit-scrollbar {
+    width: 0.5;
+    height: 100%;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #D9D9D9;
+    border: #D9D9D9;
+    border-radius: 0.625rem;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: gray;
+  }
+  &::-webkit-scrollbar-track {
+    padding-left: 1.25rem;
+    padding-bottom: 0.5rem;
+  }
 `
 
 export const ComplainInputBox = styled.div`
