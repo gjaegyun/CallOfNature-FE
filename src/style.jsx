@@ -72,17 +72,13 @@ export const MealText = styled.p`
     padding: 0;
     cursor: pointer;
 
-    transition: background-color 0.3s ease; 
+    transition: all 0.2s linear;
 
     &:hover {
-        background-color: #8BDE22;
-        color: white;
+        color: #8BDE22;
+        transform: scale( 1.2 );
     }
 
-    &:active {
-        background-color: #5E9C20; 
-        color: var(--gray-300, #BCBCBC);
-    }
 `
 
 export const ComplainText = styled.p`
@@ -96,16 +92,11 @@ export const ComplainText = styled.p`
     padding: 0;
     cursor: pointer;
 
-    transition: background-color 0.3s ease; 
+    transition: all 0.2s linear;
 
     &:hover {
-        background-color: #8BDE22;
-        color: white;
-    }
-
-    &:active {
-        background-color: #5E9C20; 
-        color: var(--gray-300, #BCBCBC);
+        color: #8BDE22;
+        transform: scale( 1.2 );
     }
 `
 
@@ -457,24 +448,12 @@ export const FloorButton = styled.button`
         : 'var(--gray-400, #969696)'
       : 'var(--gray-400, #969696)'};
 
-  &:hover {
-    background: ${(props) =>
-      props.selected
-        ? '#8bde22'
-        : props.selectedLocation === 'main'
-        ? props.floor === 'floor1'
-          ? '#f0f1f2'
-          : '#fff'
-        : '#fff'};
+transition: all 0.25s linear;
 
-    color: ${(props) =>
-      props.selected
-        ? '#fff'
-        : props.selectedLocation === 'main'
-        ? props.floor === 'floor1'
-          ? '#8bde22'
-          : 'var(--gray-400, #969696)'
-        : 'var(--gray-400, #969696)'};
+  &:hover {
+    transform: ${(props) => (props.selected ? '' : 'scale(1.1)')};
+    background-color: ${(props) => (props.selected ? '' : '#e8e8e8')};
+    color: ${(props) => (props.selected ? '' : '#c0c0c0')};
   }
 `;
 
@@ -528,19 +507,12 @@ export const MainLocation = styled(FloorButton)`
       ? '#8bde22'
       : 'var(--gray-400, #969696)'};
 
+  transition: all 0.25s linear;
+
   &:hover {
-    background: ${(props) =>
-      props.selected
-        ? '#8bde22'
-        : props.selectedLocation === 'main'
-        ? '#f0f1f2'
-        : '#fff'};
-    color: ${(props) =>
-      props.selected
-        ? '#fff'
-        : props.selectedLocation === 'main'
-        ? '#8bde22'
-        : 'var(--gray-400, #969696)'};
+    transform: ${(props) => (props.selected ? '' : 'scale(1.1)')};
+    background-color: ${(props) => (props.selected ? '' : '#e8e8e8')};
+    color: ${(props) => (props.selected ? '' : '#c0c0c0')};
   }
 `;
 
@@ -558,19 +530,12 @@ export const ServLocation = styled(FloorButton)`
       ? '#8bde22'
       : 'var(--gray-400, #969696)'};
 
+  transition: all 0.25s linear;
+
   &:hover {
-    background: ${(props) =>
-      props.selected
-        ? '#8bde22'
-        : props.selectedLocation === 'serv'
-        ? '#f0f1f2'
-        : '#fff'};
-    color: ${(props) =>
-      props.selected
-        ? '#fff'
-        : props.selectedLocation === 'serv'
-        ? '#8bde22'
-        : 'var(--gray-400, #969696)'};
+    transform: ${(props) => (props.selected ? '' : 'scale(1.1)')};
+    background-color: ${(props) => (props.selected ? '' : '#e8e8e8')};
+    color: ${(props) => (props.selected ? '' : '#c0c0c0')};
   }
 `;
 
@@ -609,15 +574,22 @@ export const RemainToilet = styled.div`
   align-items: flex-start;
 
   border-radius: 0.625rem;
-  border: 1px solid ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
-  
-  border: 1px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? 'red' : 'blue')};
-  
+  border: 1px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
   cursor: ${(props) => (props.noData ?  '': 'pointer') };
+  color: ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
+  color: ${(props) => (props.gender === 'female' ? '#E05555' : '#514EEC')};
+
+  transition: all 0.25s linear;
+
+  &:hover {
+    transform: ${(props) => (props.noData ? '' : 'scale(1.025)')};
+    background-color: ${(props) => (props.noData ? '' : '#fff')};
+    color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
+    border: 1px solid ${(props) => (props.noData ? ']' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
+  }
 `;
 
 export const RemainText = styled.p`
-  color: ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
   text-align: center;
   font-family: Inter;
   font-size: 1rem;
@@ -626,12 +598,9 @@ export const RemainText = styled.p`
   line-height: normal;
   margin: 0;
   padding-left: 1rem;
-
-  color: ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? 'red' : 'blue')};
 `;
 
 export const RemainNum = styled.p`
-  color: ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
   text-align: center;
   font-family: Inter;
   font-size: 1rem;

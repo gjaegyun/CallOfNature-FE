@@ -275,7 +275,7 @@ function Main() {
                         <DangerousIcon />
                     </S.DangerousIconBox>
                     <S.DangerousText>
-                        오늘은 유제품이 나오는 날입니다!!!
+                        다음 급식은 우유관련 식품이 나옵니다. 사수하세요!
                     </S.DangerousText>
                     <S.DangerousIconBox>
                         <DangerousIcon />
