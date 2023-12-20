@@ -166,6 +166,7 @@ function Main() {
             await axios.get(URL)
                 .then((response) => {
                     setToiletResponse(response.data)
+                    console.log(toiletResponse)
                     setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
                     setFemaleCount(toiletResponse.filter(item => item.gender === 'FEMALE' && item.state === true).length);
                 })
