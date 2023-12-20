@@ -574,25 +574,26 @@ export const RemainToilet = styled.div`
   align-items: flex-start;
 
   border-radius: 0.625rem;
-  border: 1px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
+  border: 1.5px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
   cursor: ${(props) => (props.noData ?  '': 'pointer') };
   color: ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
-  color: ${(props) => (props.gender === 'female' ? '#E05555' : '#514EEC')};
+
+  font-size: 1rem;
 
   transition: all 0.25s linear;
 
   &:hover {
     transform: ${(props) => (props.noData ? '' : 'scale(1.025)')};
-    background-color: ${(props) => (props.noData ? '' : '#fff')};
+    background-color: ${(props) => (props.noData ? '' : '#f1f1f1')};
     color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
-    border: 1px solid ${(props) => (props.noData ? ']' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
+    border: 1.5px solid ${(props) => (props.noData ? ']' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
+    font-size: ${(props) => (props.noData ? '' : props.gender === 'female' ? '1.02rem' : '1.05rem')};
   }
 `;
 
 export const RemainText = styled.p`
   text-align: center;
   font-family: Inter;
-  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -603,7 +604,6 @@ export const RemainText = styled.p`
 export const RemainNum = styled.p`
   text-align: center;
   font-family: Inter;
-  font-size: 1rem;
   font-style: normal;
   font-weight: 400;
   line-height: normal;

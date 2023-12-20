@@ -15,6 +15,9 @@ import ConIcon4 from './svg/ConIcon4';
 
 import DangerousIcon from './svg/DangerousIcon';
 
+import BlueMaleIcon from './png/BlueMaleIcon.png';
+import RedFemaleIcon from './png/RedFemaleIcon.png';
+
 import MapComponent1 from './img/floor1/MapComponent1';
 import MapComponent2 from './img/floor2/MapComponent2';
 import MapComponent3 from './img/floor3/MapComponent3';
@@ -38,6 +41,7 @@ import MainFourFemale from './svg/MainFourFemale';
 import MainFirstFemale from './svg/MainFirstFemale';
 
 import ServFirstFemale from './svg/ServFirstFemale';
+
 
 import * as S from './style';
 import { Toaster } from 'react-hot-toast';
@@ -509,18 +513,28 @@ function Main() {
                         ) : (
                             <>
                                 <S.RemainToilet gender="male" onClick={handleToiletClick1} clicked={'clicked'}>
-                                    <S.RemainText gender="male">
-                                        남은 남자 화장실
-                                    </S.RemainText>
+                                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.375rem'}}>
+                                        <S.RemainText gender="male">
+                                            남은 남자 화장실
+                                        </S.RemainText>
+                                        <div style={{display: 'flex', marginTop: '0.1rem'}}>
+                                            <img src={BlueMaleIcon} alt='blueMaleIcon' style={{width: '0.625rem', height: '1.05rem'}}/>
+                                        </div>
+                                    </div>
                                     <S.RemainNum gender="male">
                                         {maleCount}칸
                                     </S.RemainNum>
                                 </S.RemainToilet>
                                 
                                 <S.RemainToilet gender="female" onClick={handleToiletClick2} clicked={'clicked'}>
-                                    <S.RemainText gender="female">
-                                        남은 여자 화장실
-                                    </S.RemainText>
+                                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.375rem'}}>
+                                        <S.RemainText gender="female">
+                                            남은 여자 화장실
+                                        </S.RemainText>
+                                        <div style={{display: 'flex', marginTop: '0.1rem'}}>
+                                            <img src={RedFemaleIcon} alt='redFemaleIcon' style={{height: '1.05rem'}}/>
+                                        </div>
+                                    </div>
                                     <S.RemainNum gender="female">
                                         {femaleCount}칸
                                     </S.RemainNum>
