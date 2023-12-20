@@ -513,28 +513,30 @@ function Main() {
                         ) : (
                             <>
                                 <S.RemainToilet gender="male" onClick={handleToiletClick1} clicked={'clicked'}>
-                                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.375rem'}}>
+                                    <S.RemainToiletBox>
                                         <S.RemainText gender="male">
                                             남은 남자 화장실
                                         </S.RemainText>
-                                        <div style={{display: 'flex', marginTop: '0.1rem'}}>
-                                            <img src={BlueMaleIcon} alt='blueMaleIcon' style={{width: '0.625rem', height: '1.05rem'}}/>
-                                        </div>
-                                    </div>
+                                        <S.ToiletImg gender="male"
+                                            src={BlueMaleIcon} 
+                                            alt='blueMaleIcon'
+                                        />
+                                    </S.RemainToiletBox>
                                     <S.RemainNum gender="male">
                                         {maleCount}칸
                                     </S.RemainNum>
                                 </S.RemainToilet>
                                 
                                 <S.RemainToilet gender="female" onClick={handleToiletClick2} clicked={'clicked'}>
-                                    <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '0.375rem'}}>
+                                    <S.RemainToiletBox>
                                         <S.RemainText gender="female">
                                             남은 여자 화장실
                                         </S.RemainText>
-                                        <div style={{display: 'flex', marginTop: '0.1rem'}}>
-                                            <img src={RedFemaleIcon} alt='redFemaleIcon' style={{height: '1.05rem'}}/>
-                                        </div>
-                                    </div>
+                                        <S.ToiletImg gender="female"
+                                            src={RedFemaleIcon} 
+                                            alt='redFemaleIcon'
+                                        />
+                                    </S.RemainToiletBox>
                                     <S.RemainNum gender="female">
                                         {femaleCount}칸
                                     </S.RemainNum>

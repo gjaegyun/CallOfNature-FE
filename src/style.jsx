@@ -1,4 +1,13 @@
 import styled from '@emotion/styled';
+import { keyframes } from '@emotion/react';
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
 
 export const getFloorStyle = (selectedLocation, selectedFloor, currentFloor) => {
     const isSelected = selectedLocation === currentFloor.location && selectedFloor === currentFloor.floor;
@@ -317,6 +326,7 @@ export const Modal = styled.div`
     display: ${(props) => (props.showModal ? 'flex' : 'none')};
     border-radius: 1rem;
     width: fit-content;
+    animation: ${fadeIn} 0.6s ease-in-out;
 `
 
 export const ComplainModal = styled.div`
@@ -328,6 +338,7 @@ export const ComplainModal = styled.div`
   height: 0;
   width: 0;
   display: ${(props) => (props.showComplainModal ? 'block' : 'none')};
+  animation: ${fadeIn} 0.6s ease-in-out;
 `
 
 export const ComplainWriteModal = styled.div`
@@ -339,6 +350,7 @@ export const ComplainWriteModal = styled.div`
   height: 0;
   width: 0;
   display: ${(props) => (props.showWriteModal ? 'block' : 'none')};
+  animation: ${fadeIn} 0.6s ease-in-out;
 `
 
 export const ToiletModal = styled.div`
@@ -352,6 +364,7 @@ export const ToiletModal = styled.div`
   height: 0;
   width: 0;
   display: ${(props) => (props.showToilet ? 'flex' : 'none')};
+  animation: ${fadeIn} 0.6s ease-in-out;
 `
 
 export const ToiletArea = styled.div`
@@ -586,7 +599,7 @@ export const RemainToilet = styled.div`
     transform: ${(props) => (props.noData ? '' : 'scale(1.025)')};
     background-color: ${(props) => (props.noData ? '' : '#f1f1f1')};
     color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
-    border: 1.5px solid ${(props) => (props.noData ? ']' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
+    border: 1.5px solid ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
     font-size: ${(props) => (props.noData ? '' : props.gender === 'female' ? '1.02rem' : '1.05rem')};
   }
 `;
@@ -844,4 +857,16 @@ export const FinishDirection = styled.div`
   justify-content: space-between;
   height: 23rem;
   padding-top: 1rem;
+`
+
+export const RemainToiletBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.375rem;
+`
+
+export const ToiletImg = styled.img`
+  height: 1.05rem;
+  
 `
