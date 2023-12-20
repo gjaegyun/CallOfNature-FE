@@ -85,7 +85,7 @@ export const MealText = styled.p`
 
     &:hover {
         color: #8BDE22;
-        transform: scale( 1.2 );
+        transform: scale( 1.12 );
     }
 
 `
@@ -105,7 +105,7 @@ export const ComplainText = styled.p`
 
     &:hover {
         color: #8BDE22;
-        transform: scale( 1.2 );
+        transform: scale( 1.12 );
     }
 `
 
@@ -596,7 +596,7 @@ export const RemainToilet = styled.div`
   transition: all 0.25s linear;
 
   &:hover {
-    transform: ${(props) => (props.noData ? '' : 'scale(1.025)')};
+    transform: ${(props) => (props.noData ? '' : 'scale(1.02)')};
     background-color: ${(props) => (props.noData ? '' : '#f1f1f1')};
     color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
     border: 1.5px solid ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};

@@ -191,7 +191,7 @@ function Main() {
             const CAL = data.CAL_INFO;
             setCal(CAL);
 
-            let MENU = data.DDISH_NM.toString().replace(/[*]/g, '').split('<br/>')
+            let MENU = data.DDISH_NM.toString().replace(/[*.]/g, '').split('<br/>') //.삭제처리 12/21
             setMenu(parseMenu(MENU));
         })
         .catch((error) => {
