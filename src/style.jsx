@@ -178,6 +178,7 @@ export const TimerText = styled.div`
 `
 
 export const ModalContent = styled.div`
+    margin: 1rem;
     width: fit-content;
     display: flex;
     padding: 1.25rem 1.5rem;
@@ -188,12 +189,51 @@ export const ModalContent = styled.div`
     background: #fff;
 `
 
+export const ToiletContent = styled.div`
+    display: flex;
+    width: 29.375rem;
+    padding: 1.25rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.75rem;
+
+    border-radius: 0.625rem;
+    background: #FFF;
+`
+
+export const ToiletBar = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`
+
+export const ToiletStateText = styled.p`
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+`
+
+export const ToiletGrayBox = styled.div`
+  width: 29.375rem;
+  height: 13.75rem;
+  border-radius: 0.625rem;
+  background: #F0F1F2;
+`
+
 export const ModalBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 1.25rem;
 `
+
 
 export const ModalText = styled.p`
     color: #000;
@@ -262,16 +302,31 @@ export const ComplainWriteOverlay = styled.div`
   justify-content: center;
 `
 
+export const ToiletOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: ${(props) => (props.showToilet ? 'flex' : 'none')};
+  align-items: center;
+  justify-content: center;
+`
+
+
 export const Modal = styled.div`
+    align-items: center;
+    justify-content: center;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 1.5rem;
     background-color: #fff;
-    display: ${(props) => (props.showModal ? 'block' : 'none')};
+    display: ${(props) => (props.showModal ? 'flex' : 'none')};
     border-radius: 1rem;
-    width: 50%;
+    width: fit-content;
 `
 
 export const ComplainModal = styled.div`
@@ -296,6 +351,80 @@ export const ComplainWriteModal = styled.div`
   display: ${(props) => (props.showWriteModal ? 'block' : 'none')};
 `
 
+export const ToiletModal = styled.div`
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  height: 0;
+  width: 0;
+  display: ${(props) => (props.showToilet ? 'flex' : 'none')};
+`
+
+export const ToiletArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 5.625rem;
+  height: 6.25rem;
+  flex-shrink: 0;
+  border-radius: ${(props) => (props.border ? '0.625rem 0rem 0rem 0rem' : '0')};
+  border: 1px solid var(--gray-400, #969696);
+  background: #FFF;
+`
+
+export const ToiletState = styled.div`
+  display: inline-flex;
+  padding: 0.5rem 0.75rem;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
+
+  border-radius: 0.625rem;
+  background: ${(props) => (props.remain ? 'rgba(67, 117, 215, 0.10)' : 'rgba(208, 19, 19, 0.10)')};
+`
+
+export const ToiletText = styled.p`
+  color: ${(props) => (props.text ? '#4375D7' : '#D01313')};
+  text-align: center;
+  font-family: Inter;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+`
+
+export const ToiletEntet = styled.div`
+  float: right;
+  margin: 1rem;
+  margin-top: 2.5rem;
+  border: 1px solid var(--gray-400, #969696);
+  background-color: #FFF;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 6.3125rem;
+  height: 1.6875rem;
+  flex-shrink: 0;
+  fill: #FFF;
+  stroke-width: 1px;
+  stroke: var(--gray-400, #969696);
+`
+
+export const EnterText = styled.p`
+  color: var(--yellow_black, #252621);
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  margin: 0;
+`
 
 export const RedText = styled.span`
     color: red;
@@ -484,6 +613,8 @@ export const RemainToilet = styled.div`
   border: 1px solid ${(props) => (props.gender === 'female' ? 'red' : 'blue')};
   
   border: 1px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? 'red' : 'blue')};
+  
+  cursor: ${(props) => (props.noData ?  '': 'pointer') };
 `;
 
 export const RemainText = styled.p`

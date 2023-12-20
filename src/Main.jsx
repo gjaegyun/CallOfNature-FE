@@ -26,6 +26,18 @@ import MapComponent8 from './img/floor4/MapComponent8';
 
 import CheckIcon from './svg/CheckIcon';
 import RejectIcon from './svg/RejectIcon';
+import Not from './svg/Not';
+
+import MainFirstMale from './svg/MainFirstMale';
+import MainSecondMale from './svg/MainSecondMale';
+
+import ServFirstMain from './svg/ServFirstMale';
+import ServSecondMale from './svg/ServSecondMale';
+
+import MainFourFemale from './svg/MainFourFemale';
+import MainFirstFemale from './svg/MainFirstFemale';
+
+import ServFirstFemale from './svg/ServFirstFemale';
 
 import * as S from './style';
 import { Toaster } from 'react-hot-toast';
@@ -38,14 +50,22 @@ function Main() {
 
     const [selectedFloor, setSelectedFloor] = useState('floor1');
     const [selectedLocation, setSelectedLocation] = useState('main');
+    const [selectedGender, setSelectedGender] = useState('MALE');
 
     const [showModal, setShowModal] = useState(false);
     const [showComplainModal, setShowComplainModal] = useState(false);
     const [showWriteModal, setShowWriteModal] = useState(false);
+    const [showToilet, setShowToilet] = useState(false);
+    const [showToilet2, setShowToilet2] = useState(false);
+
+    const [maleCount, setMaleCount] = useState('');
+    const [femaleCount, setFemaleCount] = useState('');
 
     const [name, setName] = useState();
     const [datas, setDatas] = useState();
     const [complain, setComplain] = useState('');
+
+    const [toiletResponse, setToiletResponse] = useState('');
 
     const [cal, setCal] = useState(0);
     const [menu, setMenu] = useState([]);
@@ -142,12 +162,15 @@ function Main() {
             const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/${location}/${floor}`;
             axios.get(URL)
                 .then((response) => {
-                    if(response.data !== remainInfo) {
-                        setRemainInfo(response.data);
-                        console.log("remainInfo", remainInfo);
-                    } else {
-                        console.log('adsff');
-                    }
+                    setToiletResponse(response.data)
+                    console.log(toiletResponse[0])
+                    console.log('toiletResponse.gender', toiletResponse.gender)
+                    console.log('toiletResponse.position', toiletResponse.position)
+                    console.log('toiletResponse.position', toiletResponse.state)
+                    setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
+                    setFemaleCount(toiletResponse.filter(item => item.gender === 'FEMALE' && item.state === true).length);
+                    console.log("maleCount", maleCount)
+                    console.log("femaleCOunt", femaleCount);
                 })
                 .catch((error) => {
                     setError(error);
@@ -283,6 +306,19 @@ function Main() {
         );
     };
 
+    const handleToiletClick1 = () => {
+        setSelectedGender('MALE');
+        setShowToilet(true);
+    }
+
+    const closeToiletClick1 = () => {
+        setShowToilet(false);
+    }
+
+    const handleToiletClick2 = () => {
+        setSelectedGender('FEMALE');
+        setShowToilet(true);
+    }
 
     const handleMealClick = () => {
         setShowModal(true);
@@ -328,15 +364,21 @@ function Main() {
         const mainSelected = selectedLocation === 'main';
         const servSelected = selectedLocation === 'serv';
 
+        let mapStyle = {};
+
+        if (selectedFloor === 'floor1') {
+            mapStyle = { marginLeft: '35rem' };
+        }
+
         switch (selectedFloor) {
             case 'floor1':
-                return (mainSelected && <MapComponent5 />) || (servSelected && <MapComponent1 />);
+                return (mainSelected && <MapComponent5 />) || (servSelected && <MapComponent1 style={mapStyle} />);
             case 'floor2':
-                return (mainSelected && <MapComponent6 />) || (servSelected && <MapComponent2 />);
+                return (mainSelected && <MapComponent6 />) || (servSelected && <MapComponent2 style={mapStyle} />);
             case 'floor3':
-                return (mainSelected && <MapComponent7 />) || (servSelected && <MapComponent3 />);
+                return (mainSelected && <MapComponent7 />) || (servSelected && <MapComponent3 style={mapStyle} />);
             case 'floor4':
-                return (mainSelected && <MapComponent8 />) || (servSelected && <MapComponent4 />);
+                return (mainSelected && <MapComponent8 />) || (servSelected && <MapComponent4 style={mapStyle} />);
             default:
                 return null;
         }
@@ -470,21 +512,10 @@ function Main() {
                         {location === 'GEUMBONG' && (floor === 'THIRD' || floor === 'FOURTH') ? (
                             !remainInfo ? (
                                 <>
-                                    <S.RemainToilet gender="male">
-                                        <S.RemainText gender="male">
-                                            남은 남자 화장실
+                                    <S.RemainToilet noData={"something"}>
+                                        <S.RemainText noData={"something"}>
+                                            해당하는 화장실이 존재하지 않습니다.
                                         </S.RemainText>
-                                        <S.RemainNum gender="male">
-                                            {remainInfo.male}칸
-                                        </S.RemainNum>
-                                    </S.RemainToilet>
-                                    <S.RemainToilet gender="female">
-                                        <S.RemainText gender="female">
-                                            남은 여자 화장실
-                                        </S.RemainText>
-                                        <S.RemainNum gender="female">
-                                            {remainInfo.female}칸
-                                        </S.RemainNum>
                                     </S.RemainToilet>
                                 </>
                             ) : (
@@ -498,23 +529,23 @@ function Main() {
                             )
                         ) : (
                             <>
-                                <S.RemainToilet gender="male">
+                                <S.RemainToilet gender="male" onClick={handleToiletClick1} clicked={'clicked'}>
                                     <S.RemainText gender="male">
                                         남은 남자 화장실
                                     </S.RemainText>
                                     <S.RemainNum gender="male">
-                                        {remainInfo.male}칸
+                                        {maleCount}칸
                                     </S.RemainNum>
                                 </S.RemainToilet>
                                 
-                                    <S.RemainToilet gender="female">
-                                        <S.RemainText gender="female">
-                                            남은 여자 화장실
-                                        </S.RemainText>
-                                        <S.RemainNum gender="female">
-                                            {remainInfo.female}칸
-                                        </S.RemainNum>
-                                    </S.RemainToilet>
+                                <S.RemainToilet gender="female" onClick={handleToiletClick2} clicked={'clicked'}>
+                                    <S.RemainText gender="female">
+                                        남은 여자 화장실
+                                    </S.RemainText>
+                                    <S.RemainNum gender="female">
+                                        {femaleCount}칸
+                                    </S.RemainNum>
+                                </S.RemainToilet>
                                 
                             </>
                         )}
@@ -534,6 +565,135 @@ function Main() {
                 </S.ModalBox>
             </S.ModalContent>
             </S.Modal>
+
+            <S.ToiletOverlay gender={selectedGender} location={selectedLocation} floor={selectedFloor} showToilet={showToilet} onClick={closeToiletClick1} />
+            <S.ToiletModal gender={selectedGender} location={selectedLocation} floor={selectedFloor} showToilet={showToilet}>
+                <S.ToiletContent>
+                    <S.ToiletBar>
+                        <S.ToiletStateText>
+                        {selectedLocation === 'main' ? '본관' : '금봉관'} {selectedFloor.replace('floor', '')}층 {selectedGender === 'MALE' ? '남자' : '여자'}화장실
+                        </S.ToiletStateText>
+                        <div style={{cursor: 'pointer'}} onClick={closeToiletClick1}>
+                            <Not/>
+                        </div>
+                    </S.ToiletBar>
+
+                    {selectedGender === 'MALE' && selectedLocation === 'main' && selectedFloor === 'floor1' && (
+                        <MainFirstMale/>
+                    )}
+
+                    {selectedGender === 'MALE' && selectedLocation === 'main' && selectedFloor === 'floor2' && (
+                        <MainSecondMale/>
+                    )}
+
+                    {selectedGender === 'MALE' && selectedLocation === 'main' && selectedFloor === 'floor3' && (
+                        <MainSecondMale/>
+                    )}
+    
+                    {selectedGender === 'MALE' && selectedLocation === 'main' && selectedFloor === 'floor4' && (
+                        <S.ToiletGrayBox>
+                            
+                            <div style={{display: 'flex', margin: '1rem'}}>
+                                {toiletResponse[0].gender === 'MALE' && toiletResponse[0].position === 1 && toiletResponse[0].state === true ? (
+                                    <S.ToiletArea border={'border'}>
+                                        <S.ToiletState remain={'remain'}>
+                                            <S.ToiletText text={'text'}>
+                                                사용가능
+                                            </S.ToiletText>
+                                        </S.ToiletState>
+                                    </S.ToiletArea>
+                                ) : (
+                                    <S.ToiletArea border={'border'}>
+                                        <S.ToiletState>
+                                            <S.ToiletText>
+                                                사용불가
+                                            </S.ToiletText>
+                                        </S.ToiletState>
+                                    </S.ToiletArea>
+                                )}
+
+                                {toiletResponse[1].gender === 'MALE' && toiletResponse[1].position === 2 && toiletResponse[1].state === true ? (
+                                    <S.ToiletArea>
+                                        <S.ToiletState remain={'remain'}>
+                                            <S.ToiletText text={'text'}>
+                                                사용가능
+                                            </S.ToiletText>
+                                        </S.ToiletState>
+                                    </S.ToiletArea>
+                                ) : (
+                                    <S.ToiletArea>
+                                        <S.ToiletState>
+                                            <S.ToiletText>
+                                                사용불가
+                                            </S.ToiletText>
+                                        </S.ToiletState>
+                                    </S.ToiletArea>
+                                )}
+                            
+                                {toiletResponse[2].gender === 'MALE' && toiletResponse[2].position === 3 && toiletResponse[2].state === true ? (
+                                        <S.ToiletArea>
+                                            <S.ToiletState remain={'remain'}>
+                                                <S.ToiletText text={'text'}>
+                                                    사용가능
+                                                </S.ToiletText>
+                                            </S.ToiletState>
+                                        </S.ToiletArea>
+                                    ) : (
+                                        <S.ToiletArea>
+                                            <S.ToiletState>
+                                                <S.ToiletText>
+                                                    사용불가
+                                                </S.ToiletText>
+                                            </S.ToiletState>
+                                        </S.ToiletArea>
+                                    )}
+                            </div>
+
+                            <S.ToiletEntet>
+                                <S.EnterText>
+                                    입구
+                                </S.EnterText>
+                            </S.ToiletEntet>
+                        </S.ToiletGrayBox>
+                    )}
+
+                    
+                    {selectedGender === 'MALE' && selectedLocation === 'serv' && selectedFloor === 'floor1' && (
+                        <ServFirstMain/>
+                    )}
+
+                    {selectedGender === 'MALE' && selectedLocation === 'serv' && selectedFloor === 'floor2' && (
+                        <ServSecondMale/>
+                    )}
+
+
+
+                    {selectedGender === 'FEMALE' && selectedLocation === 'main' && selectedFloor === 'floor1' && (
+                        <MainFirstFemale/>
+                    )}
+
+                    {selectedGender === 'FEMALE' && selectedLocation === 'main' && selectedFloor === 'floor2' && (
+                        <MainFourFemale/>
+                    )}
+
+                    {selectedGender === 'FEMALE' && selectedLocation === 'main' && selectedFloor === 'floor3' && (
+                        <MainFourFemale/>
+                    )}
+
+                    {selectedGender === 'FEMALE' && selectedLocation === 'main' && selectedFloor === 'floor4' && (
+                        <MainFourFemale/>
+                    )}
+
+                    {selectedGender === 'FEMALE' && selectedLocation === 'serv' && selectedFloor === 'floor1' && (
+                        <ServFirstFemale/>
+                    )}
+
+                    {selectedGender === 'FEMALE' && selectedLocation === 'serv' && selectedFloor === 'floor2' && (
+                        <ServFirstFemale/>
+                    )}
+
+                </S.ToiletContent>
+            </S.ToiletModal>
 
             <S.ComplainModalOverlay showComplainModal={showComplainModal} onClick={handleComplainClose}/>
             <S.ComplainModal showComplainModal= {showComplainModal}>
