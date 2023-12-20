@@ -342,22 +342,22 @@ function Main() {
     const renderSelectedMapComponent = () => {
         const mainSelected = selectedLocation === 'main';
         const servSelected = selectedLocation === 'serv';
-
+    
         let mapStyle = {};
-
-        if (selectedFloor === 'floor1') {
+    
+        if (mainSelected) {
             mapStyle = { marginLeft: '35rem' };
         }
-
+    
         switch (selectedFloor) {
             case 'floor1':
-                return (mainSelected && <MapComponent5 />) || (servSelected && <MapComponent1 style={mapStyle} />);
+                return (mainSelected && <MapComponent5 style={mapStyle} />) || (servSelected && <MapComponent1 />);
             case 'floor2':
-                return (mainSelected && <MapComponent6 />) || (servSelected && <MapComponent2 style={mapStyle} />);
+                return (mainSelected && <MapComponent6 style={mapStyle} />) || (servSelected && <MapComponent2 />);
             case 'floor3':
-                return (mainSelected && <MapComponent7 />) || (servSelected && <MapComponent3 style={mapStyle} />);
+                return (mainSelected && <MapComponent7 style={mapStyle} />) || (servSelected && <MapComponent3 />);
             case 'floor4':
-                return (mainSelected && <MapComponent8 />) || (servSelected && <MapComponent4 style={mapStyle} />);
+                return (mainSelected && <MapComponent8 style={mapStyle} />) || (servSelected && <MapComponent4 />);
             default:
                 return null;
         }
@@ -417,7 +417,7 @@ function Main() {
                     </S.NavBar>
 
                     <S.ContentBox>
-                        <S.MapBox>
+                        <S.MapBox style={selectedLocation === 'main' ? { marginLeft: '35rem' } : {}}>
                             {renderSelectedMapComponent()}
                         </S.MapBox>
                     </S.ContentBox>

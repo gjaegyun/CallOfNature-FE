@@ -142,7 +142,6 @@ export const ContentBox = styled.div`
 `
 
 export const MapBox = styled.div`
-    margin-left: 35rem;
     display: flex;
     justify-content: center;
     height: 20rem;
