@@ -54,7 +54,7 @@ function Main() {
 
     const [selectedFloor, setSelectedFloor] = useState('floor1');
     const [selectedLocation, setSelectedLocation] = useState('main');
-    const [selectedGender, setSelectedGender] = useState('');
+    const [selectedGender, setSelectedGender] = useState('MAIN');
 
     const [showModal, setShowModal] = useState(false);
     const [showComplainModal, setShowComplainModal] = useState(false);
