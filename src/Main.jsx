@@ -134,7 +134,6 @@ function Main() {
 
         for (const time of targetTimes) {
             if (currentHour === time.hour && currentMinute === time.minute && currentSeconds === time.seconds) {
-                console.log("toast!")
                 notify();
             }
         }
@@ -163,15 +162,11 @@ function Main() {
             axios.get(URL)
                 .then((response) => {
                     setToiletResponse(response.data)
-                    console.log(toiletResponse)
                     setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
                     setFemaleCount(toiletResponse.filter(item => item.gender === 'FEMALE' && item.state === true).length);
-                    console.log("maleCount", maleCount)
-                    console.log("femaleCOunt", femaleCount);
                 })
                 .catch((error) => {
                     setError(error);
-                    console.log(error);
                 })
         
     }
@@ -183,7 +178,6 @@ function Main() {
 
         axios.get(cleanedURL)
         .then((response) => {
-            console.log("response", response);
             const data = response.data.mealServiceDietInfo[1].row[0];
             setDatas(data);
 
@@ -194,11 +188,9 @@ function Main() {
             setCal(CAL);
 
             let MENU = data.DDISH_NM.toString().replace(/[*]/g, '').split('<br/>')
-            console.log(MENU);
             setMenu(parseMenu(MENU));
         })
         .catch((error) => {
-            console.log(error); 
         })
     }
 
@@ -207,16 +199,12 @@ function Main() {
         axios.get(URL)
             .then((response) => {
                 setComplain(response.data.sort((a, b) => b.id - a.id));
-                console.log(complain);
-                
             })
             .catch((error) => {
-                console.log(error);
             })
     }
 
     const PostComplain = () => {
-        console.log(1);
         if (inputTitle.length === 0) {
             NothingNotify();
             return;
@@ -225,8 +213,6 @@ function Main() {
         const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
         axios.post(URL, { title: inputTitle })
             .then((response) => {
-                console.log(response.data);
-                console.log("Success", response)
                 setInputTitle('');
                 postNotify();
                 ComplainApi();
@@ -234,7 +220,6 @@ function Main() {
                 setShowComplainModal(true);
             })
             .catch((error) => {
-                console.log('Error:', error);
             });
     };
 
@@ -246,14 +231,11 @@ function Main() {
             
             const parts = item.split(/\.\.\./);
             const menuItem = parts[0].trim();
-            console.log("menuItem", menuItem);
     
             const cleanedMenuItem = menuItem.replace(/\(\d+(\.\d+)*\)/g, '');
     
             const splitedItems = menuItem.split("(");
-            console.log("splitedItems", splitedItems)
             const hasNumberTwo = splitedItems[splitedItems.length - 1]?.replace("12", '%').includes("2");
-            console.log("hasNumberTwo", hasNumberTwo)
     
             processedMenu.push({
                 name: cleanedMenuItem,
