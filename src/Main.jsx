@@ -50,7 +50,7 @@ function Main() {
 
     const [selectedFloor, setSelectedFloor] = useState('floor1');
     const [selectedLocation, setSelectedLocation] = useState('main');
-    const [selectedGender, setSelectedGender] = useState('MALE');
+    const [selectedGender, setSelectedGender] = useState('');
 
     const [showModal, setShowModal] = useState(false);
     const [showComplainModal, setShowComplainModal] = useState(false);
@@ -65,7 +65,7 @@ function Main() {
     const [datas, setDatas] = useState();
     const [complain, setComplain] = useState('');
 
-    const [toiletResponse, setToiletResponse] = useState('');
+    const [toiletResponse, setToiletResponse] = useState(null);
 
     const [cal, setCal] = useState(0);
     const [menu, setMenu] = useState([]);
@@ -156,10 +156,10 @@ function Main() {
         }
     }
 
-    const Api = () => {
+    const Api = async () => {
 
             const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/${location}/${floor}`;
-            axios.get(URL)
+            await axios.get(URL)
                 .then((response) => {
                     setToiletResponse(response.data)
                     setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
