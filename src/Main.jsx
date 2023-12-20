@@ -163,10 +163,7 @@ function Main() {
             axios.get(URL)
                 .then((response) => {
                     setToiletResponse(response.data)
-                    console.log(toiletResponse[0])
-                    console.log('toiletResponse.gender', toiletResponse.gender)
-                    console.log('toiletResponse.position', toiletResponse.position)
-                    console.log('toiletResponse.position', toiletResponse.state)
+                    console.log(toiletResponse)
                     setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
                     setFemaleCount(toiletResponse.filter(item => item.gender === 'FEMALE' && item.state === true).length);
                     console.log("maleCount", maleCount)
@@ -594,7 +591,7 @@ function Main() {
                         <S.ToiletGrayBox>
                             
                             <div style={{display: 'flex', margin: '1rem'}}>
-                                {toiletResponse[0].gender === 'MALE' && toiletResponse[0].position === 1 && toiletResponse[0].state === true ? (
+                                {toiletResponse[9].gender === 'MALE' && toiletResponse[9].position === 1 && toiletResponse[9].state === true ? (
                                     <S.ToiletArea border={'border'}>
                                         <S.ToiletState remain={'remain'}>
                                             <S.ToiletText text={'text'}>
@@ -612,7 +609,7 @@ function Main() {
                                     </S.ToiletArea>
                                 )}
 
-                                {toiletResponse[1].gender === 'MALE' && toiletResponse[1].position === 2 && toiletResponse[1].state === true ? (
+                                {toiletResponse[0].gender === 'MALE' && toiletResponse[0].position === 2 && toiletResponse[0].state === true ? (
                                     <S.ToiletArea>
                                         <S.ToiletState remain={'remain'}>
                                             <S.ToiletText text={'text'}>
@@ -630,7 +627,7 @@ function Main() {
                                     </S.ToiletArea>
                                 )}
                             
-                                {toiletResponse[2].gender === 'MALE' && toiletResponse[2].position === 3 && toiletResponse[2].state === true ? (
+                                {toiletResponse[10].gender === 'MALE' && toiletResponse[10].position === 3 && toiletResponse[10].state === true ? (
                                         <S.ToiletArea>
                                             <S.ToiletState remain={'remain'}>
                                                 <S.ToiletText text={'text'}>
