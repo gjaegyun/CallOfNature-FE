@@ -160,10 +160,10 @@ function Main() {
         }
     }
 
-    const Api = async () => {
+    const Api = () => {
 
             const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/${location}/${floor}`;
-            await axios.get(URL)
+            axios.get(URL)
                 .then((response) => {
                     setToiletResponse(response.data)
                     console.log(toiletResponse)
@@ -626,7 +626,7 @@ function Main() {
                                     </S.ToiletArea>
                                 )}
                             
-                                {toiletResponse[10].gender === 'MALE' && toiletResponse[10].position === 3 && toiletResponse[10].state === true ? (
+                                {toiletResponse[8].gender === 'MALE' && toiletResponse[8].position === 3 && toiletResponse[8].state === true ? (
                                         <S.ToiletArea>
                                             <S.ToiletState remain={'remain'}>
                                                 <S.ToiletText text={'text'}>
