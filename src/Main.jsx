@@ -78,6 +78,7 @@ function Main() {
     const [floor, setFloor] = useState("FIRST")
 
     const [loading, setLoading] = useState(false);
+    const [sortedMalePositions, setSorted] = useState([]);
 
     const [error, setError] = useState(null);
 
@@ -166,6 +167,10 @@ function Main() {
             axios.get(URL)
                 .then((response) => {
                     setToiletResponse(response.data)
+                    setSorted(toiletResponse
+                    .filter(item => item.gender === 'MALE')
+                    .sort((a, b) => a.position - b.position))
+                    console.log(sortedMalePositions);
                     console.log(toiletResponse)
                     setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
                     setFemaleCount(toiletResponse.filter(item => item.gender === 'FEMALE' && item.state === true).length);
@@ -590,7 +595,7 @@ function Main() {
                         <S.ToiletGrayBox>
                             
                             <div style={{display: 'flex', margin: '1rem'}}>
-                                {toiletResponse[9].gender === 'MALE' && toiletResponse[9].position === 1 && toiletResponse[9].state === true ? (
+                                {sortedMalePositions[0].gender === 'MALE' && sortedMalePositions[0].position === 1 && sortedMalePositions[0].state === true ? (
                                     <S.ToiletArea border={'border'}>
                                         <S.ToiletState remain={'remain'}>
                                             <S.ToiletText text={'text'}>
@@ -608,7 +613,7 @@ function Main() {
                                     </S.ToiletArea>
                                 )}
 
-                                {toiletResponse[0].gender === 'MALE' && toiletResponse[0].position === 2 && toiletResponse[0].state === true ? (
+                                {sortedMalePositions[1].gender === 'MALE' && sortedMalePositions[1].position === 2 && sortedMalePositions[1].state === true ? (
                                     <S.ToiletArea>
                                         <S.ToiletState remain={'remain'}>
                                             <S.ToiletText text={'text'}>
@@ -626,7 +631,7 @@ function Main() {
                                     </S.ToiletArea>
                                 )}
                             
-                                {toiletResponse[10].gender === 'MALE' && toiletResponse[10].position === 3 && toiletResponse[10].state === true ? (
+                                {sortedMalePositions[2].gender === 'MALE' && sortedMalePositions[2].position === 3 && sortedMalePositions[2].state === true ? (
                                         <S.ToiletArea>
                                             <S.ToiletState remain={'remain'}>
                                                 <S.ToiletText text={'text'}>
