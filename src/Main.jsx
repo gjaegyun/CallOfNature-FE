@@ -626,7 +626,7 @@ function Main() {
                                     </S.ToiletArea>
                                 )}
                             
-                                {toiletResponse[8].gender === 'MALE' && toiletResponse[8].position === 3 && toiletResponse[8].state === true ? (
+                                {toiletResponse[10].gender === 'MALE' && toiletResponse[10].position === 3 && toiletResponse[10].state === true ? (
                                         <S.ToiletArea>
                                             <S.ToiletState remain={'remain'}>
                                                 <S.ToiletText text={'text'}>
