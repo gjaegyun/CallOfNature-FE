@@ -11,7 +11,14 @@ const ConIcon4 = () => (
             fill="url(#paint0_linear_361_3378)"
         />
         <defs>
-            <linearGradient id="paint0_linear_361_3378" x1="22.991" y1="11.9688" x2="-54.76" y2="11.9688" gradientUnits="userSpaceOnUse">
+            <linearGradient 
+                id="paint0_linear_361_3378" 
+                x1="22.991" 
+                y1="11.9688" 
+                x2="-54.76" 
+                y2="11.9688" 
+                gradientUnits="userSpaceOnUse"
+            >
                 <stop 
                     stopColor="#ADEF58"
                 />

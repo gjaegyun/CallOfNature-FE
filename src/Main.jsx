@@ -170,8 +170,6 @@ function Main() {
                     setSorted(toiletResponse
                     .filter(item => item.gender === 'MALE')
                     .sort((a, b) => a.position - b.position))
-                    console.log(sortedMalePositions);
-                    console.log(toiletResponse)
                     setMaleCount(toiletResponse.filter(item => item.gender === 'MALE' && item.state === true).length);
                     setFemaleCount(toiletResponse.filter(item => item.gender === 'FEMALE' && item.state === true).length);
                 })
