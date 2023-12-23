@@ -1,5 +1,5 @@
 import Main from './Main';
-import Structure from './pages/Structure';
+import Show from './Show';
 import {Routes, Route} from 'react-router-dom';
 
 function App () {
@@ -7,8 +7,8 @@ function App () {
     <>
       <div>
         <Routes>
-          <Route path = "/" element={<Main/>} />
-          <Route path = "/structure" element={<Structure/>}/>
+          <Route path = "/con" element={<Main/>} />
+          <Route path = "/" element={<Show/>}/>
         </Routes>
       </div>
     </>
