@@ -18,69 +18,69 @@ import styled from '@emotion/styled';
 
 
 const StyledButton = styled.button`
-  --font-size: 16px;
-  --duration: 0.44s;
-  --move-hover: -4px;
+    --font-size: 16px;
+    --duration: 0.44s;
+    --move-hover: -4px;
 
-  padding: 16px 32px;
-  font-family: 'Roboto';
-  font-weight: 500;
-  line-height: var(--font-size);
-  border-radius: 24px;
-  display: block;
-  outline: none;
-  appearance: none;
-  border: none;
-  text-decoration: none;
-  font-size: var(--font-size);
-  letter-spacing: 0.5px;
-  display: flex;
-  overflow: hidden;
-  border: #8bde22;
-  background: #fff;
-  color: #8bde22;
-  box-shadow: 0 2px 8px -1px #729a3e;
-  transform: translateY(var(--y)) translateZ(0);
-  transition: transform var(--duration) ease, box-shadow var(--duration) ease;
-
-  &:hover {
-    --y: var(--move-hover);
-    box-shadow: 0 4px 20px -2px rgba(39, 94, 254, 0.5);
-    span {
-      --m: calc(var(--font-size) * -1);
-    }
-  }
-
-  div {
+    padding: 16px 32px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    line-height: var(--font-size);
+    border-radius: 24px;
+    display: block;
+    outline: none;
+    appearance: none;
+    border: none;
+    text-decoration: none;
+    font-size: var(--font-size);
+    letter-spacing: 0.5px;
     display: flex;
     overflow: hidden;
-    text-shadow: 0 var(--font-shadow) 0 var(--text);
-    span {
-      display: block;
-      backface-visibility: hidden;
-      font-style: normal;
-      transition: transform var(--duration) ease;
+    border: #8bde22;
+    background: #fff;
+    color: #8bde22;
+    box-shadow: 0 2px 8px -1px #729a3e;
+    transform: translateY(var(--y)) translateZ(0);
+    transition: transform var(--duration) ease, box-shadow var(--duration) ease;
 
-      &:nth-child(odd) {
-        --font-shadow: var(--font-size);
-      }
-
-      &:nth-child(even) {
-        --font-shadow: calc(var(--font-size) * -1);
-      }
-
-      &:nth-child(n) {
+    &:hover {
+        --y: var(--move-hover);
+        box-shadow: 0 4px 20px -2px rgba(39, 94, 254, 0.5);
+        span {
         --m: calc(var(--font-size) * -1);
-      }
+        }
     }
-  }
+
+    div {
+        display: flex;
+        overflow: hidden;
+        text-shadow: 0 var(--font-shadow) 0 var(--text);
+        span {
+        display: block;
+        backface-visibility: hidden;
+        font-style: normal;
+        transition: transform var(--duration) ease;
+
+        &:nth-child(odd) {
+            --font-shadow: var(--font-size);
+        }
+
+        &:nth-child(even) {
+            --font-shadow: calc(var(--font-size) * -1);
+        }
+
+        &:nth-child(n) {
+            --m: calc(var(--font-size) * -1);
+        }
+        }
+    }
 `;
 
 function Show() {
     const navigate = useNavigate();
     const [scrollY, setScrollY] = useState(0);
     const [contributorsScale, setContributorsScale] = useState(0.7);
-    const maxScale = 15;
+    const maxScale = 20;
     const fadeThreshold = 200; 
     const secondContainerTrigger = 92; 
 
@@ -100,7 +100,7 @@ function Show() {
         };
     }, [scrollY]);
 
-    const scale = Math.min(1 + scrollY / 10, maxScale);
+    const scale = Math.min(1 + scrollY / 20, maxScale);
     const opacity = Math.max(0, 1 - (scrollY - maxScale * 10) / fadeThreshold);
     const translateX = Math.max(0, (scrollY - secondContainerTrigger * 8) / 7);
 
