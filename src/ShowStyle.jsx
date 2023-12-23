@@ -4,7 +4,7 @@ export const StyledBody = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%;
 `;
 
 export const Body = styled.div`
@@ -21,8 +21,8 @@ export const ConIcon = styled.div`
     align-items: flex-start;
     gap: 0.125rem;
     justify-content: center;
-    transition: transform 0.5s ease-in-out; /* 트랜지션 추가 */
-    transform-origin: center center; /* 중심을 정중앙으로 설정 */
+    transition: transform 0.5s ease-in-out; 
+    transform-origin: center center; 
 `;
 
 export const IncludeIcon3 = styled.div`
@@ -30,7 +30,7 @@ export const IncludeIcon3 = styled.div`
     position: relative;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* 내용이 넘칠 경우 숨김 처리 */
+    overflow: hidden; 
 `;
 
 export const Just = styled.div`
@@ -40,10 +40,38 @@ export const Just = styled.div`
 
 export const ButtonWrapper = styled.div`
     position: fixed;
-    bottom: 8rem; /* 버튼이 항상 아래에서 8rem 위에 위치하도록 조정 */
-    width: 100%;
-    background-color: white; /* 필요에 따라 배경색 조정 */
-    padding: 1rem; /* 필요에 따라 여백 조정 */
+    bottom: 6rem; 
     display: flex;
     justify-content: center;
+    z-index: 999;
+    margin: 0;
 `;
+
+export const InfoContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    
+`
+
+export const ImgContainer = styled.img`
+    width: 9rem;
+    height: 8rem;
+    background: none;
+`
+
+export const TextContainer = styled.p`
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+`
+
+export const ServTextContainer = styled.p`
+    font-size: 2rem;
+    color: gray;
+    font-weight: 900;
+    margin: 0;
+`
