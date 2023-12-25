@@ -604,6 +604,7 @@ export const RemainToilet = styled.button`
     width: 0;
     height: 2px;
     background-color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#E05555' : '#514EEC')};
+
     transition: all 0.3s ease;
   }
 
@@ -800,19 +801,28 @@ export const ComplainWrite = styled.button`
   gap: 0.625rem;
   border: none;
   background: #fff;
+  color: #000;
+  font-weight: 550;
   border-radius: 0.625rem;
   box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
   margin-bottom: 1rem;
   cursor: pointer;
+
+  transition: all 0.3s ease;
+
+  :hover {
+    background-color: #F0F1F2;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: none;
+    border: 0.5px solid #000
+  }
 `
 
 export const WriteText = styled.p`
-  color: #000;
   text-align: center;
   font-family: Inter;
-  font-size: small;
   font-style: normal;
-  font-weight: 550;
   line-height: normal;
   letter-spacing: -0.04rem;
   margin: 0;
