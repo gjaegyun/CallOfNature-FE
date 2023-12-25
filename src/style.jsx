@@ -588,9 +588,12 @@ export const RemainToilet = styled.button`
 
   border-radius: 0.625rem;
   border: 1.5px solid ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
-  cursor: ${(props) => (props.noData ? '' : 'pointer')};
+  cursor: ${(props) => (props.noData ?  '': 'pointer') };
+  background-color: ${(props) => (props.noData ?  '': '#fff') };
   color: ${(props) => (props.noData ? 'var(--gray-400, #969696)' : props.gender === 'female' ? '#E05555' : '#514EEC')};
+
   font-size: 1rem;
+
   position: relative;
   transition: all 0.25s linear;
 
@@ -600,7 +603,7 @@ export const RemainToilet = styled.button`
     position: absolute;
     width: 0;
     height: 2px;
-    background-color: #514EEC;
+    background-color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#E05555' : '#514EEC')};
     transition: all 0.3s ease;
   }
 
@@ -616,20 +619,20 @@ export const RemainToilet = styled.button`
 
   &:hover {
     transform: ${(props) => (props.noData ? '' : 'scale(1.02)')};
-    background-color: ${(props) => (props.noData ? '' : '#f1f1f1')};
-    color: ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
-    border: 1.5px solid ${(props) => (props.noData ? '' : props.gender === 'female' ? '#8bde22' : '#8bde22')};
+    background-color: ${(props) => (props.noData ? '' : 'transparent')};
     font-size: ${(props) => (props.noData ? '' : props.gender === 'female' ? '1.02rem' : '1.05rem')};
+    border: ${(props) => (props.noData ? '' : '1.5px solid transparent')};
 
     &:before {
-      width: ${(props) => (props.noData ? '0' : '100%')};
+      width: 100%;
     }
 
     &:after {
-      width: ${(props) => (props.noData ? '0' : '100%')};
+      width: 100%;
     }
   }
 `;
+
 
 
 export const RemainText = styled.p`
