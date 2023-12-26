@@ -96,6 +96,12 @@ function Main() {
     const NothingNotify = () => {
         toast.error("입력을 해주세요!")
     }
+    const OverNotify = () => {
+        toast.error("30자 이내로 적어주세요!")
+    }
+    const LanguageNotify = () => {
+        toast.error("한글로 입력해주세요!")
+    }
 
     let year = currentTime.getFullYear();
     let month = currentTime.getMonth() + 1;
@@ -216,9 +222,19 @@ function Main() {
     }
 
     const PostComplain = () => {
+
+        if (!/[\u3131-\uD79D]/.test(inputTitle) || isSubmitting) {
+            LanguageNotify();
+            return;
+        }
     
         if (inputTitle.length === 0 || isSubmitting) {
             NothingNotify();
+            return;
+        }
+
+        if (inputTitle.length >= 31) {
+            OverNotify();
             return;
         }
     

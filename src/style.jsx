@@ -743,6 +743,7 @@ export const ComplainWhiteBox = styled.div`
   flex-shrink: 0;
   border-radius: 0.625rem;
   background: #fff;
+  box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
 `
 
 export const ComplainContent = styled.div`
@@ -873,7 +874,7 @@ export const FinishWrite = styled.button`
   justify-content: center;
   align-items: center;
   border: none;
-  background: #F0F1F2;
+  background: #ebebeb;
   cursor: pointer;
   border-radius: 0.625rem;
   box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
