@@ -54,7 +54,7 @@ function Main() {
 
     const [selectedFloor, setSelectedFloor] = useState('floor1');
     const [selectedLocation, setSelectedLocation] = useState('main');
-    const [selectedGender, setSelectedGender] = useState('MAIN');
+    const [selectedGender, setSelectedGender] = useState('MALE');
 
     const [showModal, setShowModal] = useState(false);
     const [showComplainModal, setShowComplainModal] = useState(false);
@@ -73,6 +73,8 @@ function Main() {
 
     const [cal, setCal] = useState(0);
     const [menu, setMenu] = useState([]);
+    
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const [location, setLocation] = useState("MAIN");
     const [floor, setFloor] = useState("FIRST")
@@ -213,12 +215,16 @@ function Main() {
     }
 
     const PostComplain = () => {
-        if (inputTitle.length === 0) {
+    
+        if (inputTitle.length === 0 || isSubmitting) {
             NothingNotify();
             return;
         }
     
         const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
+    
+        setIsSubmitting(true);
+    
         axios.post(URL, { title: inputTitle })
             .then((response) => {
                 setInputTitle('');
@@ -228,6 +234,9 @@ function Main() {
                 setShowComplainModal(true);
             })
             .catch((error) => {
+            })
+            .finally(() => {
+                setIsSubmitting(false);
             });
     };
 

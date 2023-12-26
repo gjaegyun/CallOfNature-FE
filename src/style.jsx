@@ -464,7 +464,6 @@ export const FloorButton = styled.button`
 transition: all 0.25s linear;
 
   &:hover {
-    transform: ${(props) => (props.selected ? '' : 'scale(1.1)')};
     background-color: ${(props) => (props.selected ? '' : '#e8e8e8')};
     color: ${(props) => (props.selected ? '' : '#c0c0c0')};
   }
@@ -523,7 +522,6 @@ export const MainLocation = styled(FloorButton)`
   transition: all 0.25s linear;
 
   &:hover {
-    transform: ${(props) => (props.selected ? '' : 'scale(1.1)')};
     background-color: ${(props) => (props.selected ? '' : '#e8e8e8')};
     color: ${(props) => (props.selected ? '' : '#c0c0c0')};
   }
@@ -546,7 +544,6 @@ export const ServLocation = styled(FloorButton)`
   transition: all 0.25s linear;
 
   &:hover {
-    transform: ${(props) => (props.selected ? '' : 'scale(1.1)')};
     background-color: ${(props) => (props.selected ? '' : '#e8e8e8')};
     color: ${(props) => (props.selected ? '' : '#c0c0c0')};
   }
@@ -820,6 +817,8 @@ export const ComplainWrite = styled.button`
 `
 
 export const WriteText = styled.p`
+  font-size: 0.8rem;
+  font-weight: 550;
   text-align: center;
   font-family: Inter;
   font-style: normal;
@@ -878,17 +877,27 @@ export const FinishWrite = styled.button`
   cursor: pointer;
   border-radius: 0.625rem;
   box-shadow: 1px 1px 6px 2px rgba(0, 0, 0, 0.10);
+
+  transition: all 0.3s ease;
+
+  :hover {
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    box-shadow: none;
+    border: 0.5px solid #000
+  }
 `
 
 export const FinishText = styled.p`
   color: #000;
   text-align: center;
   font-family: Inter;
-  font-size: small;
   font-style: normal;
-  font-weight: 550;
   line-height: normal;
   letter-spacing: -0.04rem;
+  font-size: 0.8rem;
+  font-weight: 550;
   margin: 0;
 `
 
