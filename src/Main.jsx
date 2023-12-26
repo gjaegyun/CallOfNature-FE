@@ -104,7 +104,7 @@ function Main() {
     useEffect(() => {
         mealApi();
         ComplainApi();
-    })
+    }, [])
 
     useEffect(() => {
         Api();
@@ -208,6 +208,7 @@ function Main() {
         const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
         axios.get(URL)
             .then((response) => {
+                console.log(response)
                 setComplain(response.data.sort((a, b) => b.id - a.id));
             })
             .catch((error) => {
