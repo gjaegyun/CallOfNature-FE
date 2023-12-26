@@ -104,7 +104,7 @@ function Main() {
     useEffect(() => {
         mealApi();
         ComplainApi();
-    }, [])
+    })
 
     useEffect(() => {
         Api();
@@ -753,7 +753,7 @@ function Main() {
                                 <S.InputLine
                                     type='text'
                                     placeholder=" 민원을 하실 내용을 적어주세요.
-                                    &#13;&#10;EX) 본관 1층 1번째 칸 화장실 휴지가 없어요."
+                                                &#13;&#10;EX) 본관 1층 1번째 칸 화장실 휴지가 없어요."
                                     value={inputTitle}
                                     onChange={(e) => setInputTitle(e.target.value)}
                                 />
