@@ -428,7 +428,10 @@ function Main() {
         }
     };
 
-    
+    const getDayOfWeek = (dayIndex) => {
+        const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
+        return daysOfWeek[dayIndex];
+    };
 
     return (
         <>
@@ -591,7 +594,7 @@ function Main() {
             <S.Modal showModal={showModal}>
             <S.ModalContent>
                 <S.ModalBox>
-                    <S.ModalText>{year}.{month}.{date}</S.ModalText>
+                    <S.ModalText>{year}.{month}.{date} ({getDayOfWeek(currentTime.getDay())})</S.ModalText>
                     <S.ModalDay>
                         다음 급식은
                         <S.ModalDayText>
