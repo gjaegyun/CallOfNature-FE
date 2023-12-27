@@ -84,6 +84,8 @@ function Main() {
 
     const [error, setError] = useState(null);
 
+    const [time, setTime] = useState('아침');
+
     const [currentTime, setCurrentTime] = useState(new Date());
     //const navigate = useNavigate();
 
@@ -161,10 +163,13 @@ function Main() {
             year = tomorrow.getFullYear();
             month = tomorrow.getMonth() + 1;
             date = tomorrow.getDate();
+            setTime('아침')
             return 1;
         } else if (currentHour < 13) {
+            setTime('점심');
             return 2;
         } else {
+            setTime('저녁')
             return 3;
         }
     }
@@ -423,6 +428,8 @@ function Main() {
         }
     };
 
+    
+
     return (
         <>
             <S.StyledBody>
@@ -584,8 +591,19 @@ function Main() {
             <S.Modal showModal={showModal}>
             <S.ModalContent>
                 <S.ModalBox>
-                    <S.ModalText>오늘의 메뉴</S.ModalText>
-                    <S.MealContent>{renderMealList()}</S.MealContent>
+                    <S.ModalText>{year}.{month}.{date}</S.ModalText>
+                    <S.ModalDay>
+                        다음 급식은
+                        <S.ModalDayText>
+                            {time}
+                        </S.ModalDayText>
+                        입니다.
+                    </S.ModalDay>
+                    <S.MealGrayBox>
+                        <S.MealContent>
+                            {renderMealList()}
+                        </S.MealContent>
+                    </S.MealGrayBox>
                 </S.ModalBox>
             </S.ModalContent>
             </S.Modal>

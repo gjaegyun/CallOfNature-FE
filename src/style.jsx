@@ -180,12 +180,59 @@ export const ModalContent = styled.div`
     margin: 1rem;
     width: fit-content;
     display: flex;
-    padding: 1.25rem 1.5rem;
+    padding: 1.5rem 1.5rem;
     flex-direction: column;
     align-items: flex-start;
     gap: 2.5rem;
     border-radius: 1rem;
     background: #fff;
+    box-shadow: 2px 2px 6px 2px rgba(0, 0, 0, 0.1);
+`
+
+export const ModalDay = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 21rem;
+  height: 2.9375rem;
+  border-radius: 0.625rem;
+  background: #F0F1F2;
+  color: #050505;
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+`
+
+export const ModalDayText = styled.p`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 2rem;
+  left: 0.3125rem;
+  top: 0.1875rem;
+  border-radius: 0.625rem;
+  background: #FFF;
+  box-shadow: 1px 1px 6px 0px rgba(0, 0, 0, 0.25);
+  margin: 0.25rem;
+  color: #050505;
+  text-align: center;
+  font-family: Inter;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 800;
+  line-height: normal;
+`
+
+export const MealGrayBox = styled.div`
+  display: inline-flex;
+  padding: 0.875rem 11.5rem 1.25rem 0.5625rem;
+  align-items: center;
+  border-radius: 0.625rem;
+  background: #F0F1F2;
 `
 
 export const ToiletContent = styled.div`
@@ -260,7 +307,7 @@ export const MealList = styled.p`
     font-family: Inter;
     font-size: 1.125rem;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: normal;
     padding: 0;
     margin: 0;
@@ -321,7 +368,7 @@ export const Modal = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 1.5rem;
+    padding: 0.3rem;
     background-color: #fff;
     display: ${(props) => (props.showModal ? 'flex' : 'none')};
     border-radius: 1rem;
