@@ -96,13 +96,13 @@ function Main() {
         toast.success("정상적으로 등록되었습니다!")
     }
     const NothingNotify = () => {
-        toast.error("입력을 해주세요!")
+        toast.error("한글을 사용하여 입력을 해주세요!")
     }
     const OverNotify = () => {
-        toast.error("30자 이내로 적어주세요!")
+        toast.error("50자 이내로 작성해주세요!")
     }
     const LanguageNotify = () => {
-        toast.error("한글로 입력해주세요!")
+        toast.error("한글을 사용하여 입력해주세요!")
     }
 
     let year = currentTime.getFullYear();
@@ -237,7 +237,7 @@ function Main() {
             return;
         }
 
-        if (inputTitle.length >= 31) {
+        if (inputTitle.length >= 51) {
             OverNotify();
             return;
         }
@@ -748,7 +748,7 @@ function Main() {
                         <S.ComplainContent key={complains.id}>
                             <S.ComplainTextBox>
                                 <S.JustBox>
-                                    {complains.id === 1 || complains.id === 3 ? <CheckIcon/> : <RejectIcon/>}
+                                    {complains.id === 197 || complains.id === 200 ? <CheckIcon/> : <RejectIcon/>}
                                     <S.ComplainBoxText>
                                         {complains.title.length >= 23
                                         ? complains.title.substring(0, 23) +
