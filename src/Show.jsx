@@ -120,7 +120,7 @@ function Show() {
                     </S.InfoContainer>
                     <br />
                     <S.ServTextContainer>
-                        담당 : 오은찬(잡탕)
+                        담당 : 오은찬(코인사)
                     </S.ServTextContainer>
                 </S.RightRelative2>
 

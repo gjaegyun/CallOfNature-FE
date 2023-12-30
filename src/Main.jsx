@@ -96,13 +96,7 @@ function Main() {
         toast.success("정상적으로 등록되었습니다!")
     }
     const NothingNotify = () => {
-        toast.error("한글을 사용하여 입력을 해주세요!")
-    }
-    const OverNotify = () => {
-        toast.error("50자 이내로 작성해주세요!")
-    }
-    const LanguageNotify = () => {
-        toast.error("한글을 사용하여 입력해주세요!")
+        toast.error("한글을 사용하여 50자 이내로 입력을 해주세요!")
     }
 
     let year = currentTime.getFullYear();
@@ -228,7 +222,7 @@ function Main() {
     const PostComplain = () => {
 
         if (!/[\u3131-\uD79D]/.test(inputTitle) || isSubmitting) {
-            LanguageNotify();
+            NothingNotify();
             return;
         }
     
@@ -238,7 +232,7 @@ function Main() {
         }
 
         if (inputTitle.length >= 51) {
-            OverNotify();
+            NothingNotify();
             return;
         }
     
