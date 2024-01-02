@@ -185,10 +185,11 @@ function Main() {
                 })
         
     }
+    console.log(year)
 
     const mealApi = () => {
         const mealCode = getMealCode();
-        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${process.env.REACT_APP_KEY}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=${year}${month}${date}&MMEAL_SC_CODE=${mealCode}`;
+        const URL = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${process.env.REACT_APP_KEY}&Type=json&pIndex=1&pSize=1&ATPT_OFCDC_SC_CODE=F10&SD_SCHUL_CODE=7380292&MLSV_YMD=20231227&MMEAL_SC_CODE=${mealCode}`;
         const cleanedURL = URL.replace(/\(\)/g, '');
 
         axios.get(cleanedURL)
@@ -588,7 +589,7 @@ function Main() {
             <S.Modal showModal={showModal}>
             <S.ModalContent>
                 <S.ModalBox>
-                    <S.ModalText>{year}.{month}.{date} ({getDayOfWeek(currentTime.getDay())})</S.ModalText>
+                    <S.ModalText>2023.12.27 (수)</S.ModalText>
                     <S.ModalDay>
                         다음 급식은
                         <S.ModalDayText>
