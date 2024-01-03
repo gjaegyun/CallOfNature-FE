@@ -170,9 +170,10 @@ function Main() {
 
     const Api = () => {
 
-            const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/${location}/${floor}`;
+            const URL = `https://port-0-wapooawd-2rrqq2blmorf3pd.sel5.cloudtype.app/toilet/MAIN/FOURTH`;
             axios.get(URL)
                 .then((response) => {
+                    console.log(response)
                     setToiletResponse(response.data)
                     setSorted(toiletResponse
                     .filter(item => item.gender === 'MALE')
@@ -203,7 +204,7 @@ function Main() {
             const CAL = data.CAL_INFO;
             setCal(CAL);
 
-            let MENU = data.DDISH_NM.toString().replace(/[*.]/g, '').split('<br/>') //.삭제처리 12/21
+            let MENU = data.DDISH_NM.toString().replace(/[*.]/g, '').split('<br/>')
             setMenu(parseMenu(MENU));
         })
         .catch((error) => {
@@ -211,7 +212,7 @@ function Main() {
     }
 
     const ComplainApi = () => {
-        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
+        const URL = `https://port-0-wapooawd-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
         axios.get(URL)
             .then((response) => {
                 setComplain(response.data.sort((a, b) => b.id - a.id));
@@ -237,7 +238,7 @@ function Main() {
             return;
         }
     
-        const URL = `https://port-0-wapoo-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
+        const URL = `https://port-0-wapooawd-2rrqq2blmorf3pd.sel5.cloudtype.app/complain`;
     
         setIsSubmitting(true);
     
